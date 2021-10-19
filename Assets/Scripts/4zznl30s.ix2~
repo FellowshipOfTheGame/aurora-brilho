@@ -1,0 +1,86 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class AuroraMovement : MonoBehaviour
+{
+    [Header("Horizontal Movement")]
+    [SerializeField] float acceleration;
+    [SerializeField] float deceleration;
+    [SerializeField] float friction;
+    [SerializeField] float topSpeed;
+
+    // Cached components
+    Rigidbody2D rb;
+
+    // Input variables
+    int xInput;
+    private void Awake()
+    {
+        rb = GetComponent<Rigidbody2D>();
+    }
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        xInput = GetHorizontalInput();
+    }
+
+    private void FixedUpdate()
+    {
+        if (xInput != 0)
+        {
+            Run();
+        }
+        else
+        {
+            ApplyFriction();
+        }
+    }
+
+    private void Run()
+    {
+        float xVelocity = rb.velocity.x;
+
+        // input in same direction of movement => accelerate
+        if (xInput == 1 && xVelocity >= 0 || xInput == -1 && xVelocity <= 0)
+        {
+            // only move if not exceeded topSpeed
+            if (Mathf.Abs(xVelocity) < topSpeed)
+            {
+                float velocityChange = acceleration * Time.deltaTime;
+                xVelocity += Mathf.Sign(xVelocity) * velocityChange;
+                xVelocity = Mathf.Clamp(xVelocity, -topSpeed, topSpeed);
+                rb.velocity = new Vector2(xVelocity, rb.velocity.y);
+            }
+        }
+        else // input in opposite direction of movement => decelerate
+        {
+            float velocityChange = deceleration * Time.deltaTime;
+            xVelocity += Mathf.Sign(xVelocity) * velocityChange;
+            rb.velocity = new Vector2(xVelocity, rb.velocity.y);
+        }
+    }
+    
+    private void ApplyFriction()
+    {
+        throw new NotImplementedException();
+    }
+
+    private int GetHorizontalInput()
+    {
+        float xAxis = Input.GetAxisRaw("Horizontal");
+
+        //Controller joystick snap
+        xAxis = (xAxis > 0.1f) ? 1 : (xAxis < -0.1f) ? -1 : 0;
+
+        return (int)xAxis;
+    }
+}
