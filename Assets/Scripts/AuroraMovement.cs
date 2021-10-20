@@ -8,76 +8,129 @@ public class AuroraMovement : MonoBehaviour
     [Header("Horizontal Movement")]
     [SerializeField] float acceleration;
     [SerializeField] float deceleration;
-    [SerializeField] float friction;
     [SerializeField] float topSpeed;
+    [SerializeField] [Range(0, 1)] float airControl;
+
+    [Header("Jump variables")]
+    [SerializeField] float jumpHeight;
+    [SerializeField] float timeToApex;
+    const int jumpsQuantity = 2;
+    float gravity;
+
+    [Header("Ground check")]
+    [SerializeField] LayerMask groundMask;
+    const float groundCheckWidth = 0.015f; // tested value
+
+    // Current state related variables
+    bool grounded;
+    int jumpsAvailable;
 
     // Cached components
     Rigidbody2D rb;
+    BoxCollider2D boxCollider;
 
     // Input variables
-    int xInput;
+    int xAxisInput;
+    bool jumpKey;
+
+    [Header("Debug")]
+    [SerializeField] bool recalculateVariables;
+
     private void Awake()
     {
+        // Get components
         rb = GetComponent<Rigidbody2D>();
-    }
+        boxCollider = GetComponent<BoxCollider2D>();
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
+        // Initialize jump related variables
+        gravity = -2 * jumpHeight / (timeToApex * timeToApex);
+        rb.gravityScale = gravity / Physics2D.gravity.y;
     }
 
     // Update is called once per frame
     void Update()
     {
-        xInput = GetHorizontalInput();
+        GetHorizontalInput();
+        GetJumpInput();
     }
 
     private void FixedUpdate()
     {
-        if (xInput != 0)
+        CheckGrounded(); // updates grounded variable
+
+        if (grounded)
+            jumpsAvailable = jumpsQuantity; // reset jumps
+
+        if (jumpKey)
         {
-            bool changingDirections = xInput == 1 && rb.velocity.x < 0 || xInput == -1 && rb.velocity.x > 0;
-            if (!changingDirections)
+            jumpKey = false; // resets key even if not able to jump
+            if (jumpsAvailable > 0)
             {
-                Run();
+                Jump();
+                jumpsAvailable--;
             }
-            else
-            {
-                Reverse();
-            }
+        }
+
+        HorizontalMovement();
+    }
+
+    private void Jump()
+    {
+        #region Debug
+        if (recalculateVariables)
+        {
+            gravity = -2 * jumpHeight / (timeToApex * timeToApex);
+            rb.gravityScale = gravity / Physics2D.gravity.y;
+        }
+        #endregion
+
+        // y velocity is set to jump force, current velocity is overwritten
+        rb.velocity = new Vector2(rb.velocity.x, -gravity * timeToApex);
+    }
+
+    private void HorizontalMovement()
+    {
+        bool inputInDirectionOfMovement = (xAxisInput == 1 && rb.velocity.x >= 0) || (xAxisInput == -1 && rb.velocity.x <= 0);
+
+        if (inputInDirectionOfMovement && Mathf.Abs(rb.velocity.x) <= topSpeed)
+        {
+            Accelerate();
         }
         else
         {
-            ApplyFriction();
+            Decelerate();
         }
     }
 
-    private void Run()
+    private void Accelerate()
     {
         float xVelocity = rb.velocity.x;
 
-        // only move if not exceeded topSpeed
-        if (Mathf.Abs(xVelocity) < topSpeed)
-        {
-            float velocityChange = acceleration * Time.deltaTime;
-            xVelocity += Mathf.Sign(xVelocity) * velocityChange;
-            xVelocity = Mathf.Clamp(xVelocity, -topSpeed, topSpeed);
-            rb.velocity = new Vector2(xVelocity, rb.velocity.y);
-        }
+        float velocityChange = acceleration * Time.deltaTime;
+        if (!grounded) velocityChange *= airControl;
+
+        if (xAxisInput == 1)
+            xVelocity += velocityChange;
+        else
+            xVelocity -= velocityChange;
+
+        xVelocity = Mathf.Clamp(xVelocity, -topSpeed, topSpeed);
+        rb.velocity = new Vector2(xVelocity, rb.velocity.y);
     }
 
-    private void Reverse()
+    private void Decelerate()
     {
         float xVelocity = rb.velocity.x;
+
         float velocityChange = deceleration * Time.deltaTime;
+        if (!grounded) velocityChange *= airControl;
 
         if (xVelocity > 0)
         {
             xVelocity -= velocityChange;
             if (xVelocity < 0) xVelocity = 0;
         }
-        else
+        else if (xVelocity < 0)
         {
             xVelocity += velocityChange;
             if (xVelocity > 0) xVelocity = 0;
@@ -86,32 +139,45 @@ public class AuroraMovement : MonoBehaviour
         rb.velocity = new Vector2(xVelocity, rb.velocity.y);
     }
 
-    private void ApplyFriction()
+    private void CheckGrounded()
     {
-        float xVelocity = rb.velocity.x;
-        float velocityChange = friction * Time.deltaTime;
+        Vector2 pointA, pointB;
 
-        if (xVelocity > 0)
+        pointA = new Vector2(boxCollider.bounds.center.x - boxCollider.bounds.extents.x + groundCheckWidth,
+            boxCollider.bounds.center.y - boxCollider.bounds.extents.y + groundCheckWidth);
+        pointB = new Vector2(boxCollider.bounds.center.x + boxCollider.bounds.extents.x - groundCheckWidth,
+            boxCollider.bounds.center.y - boxCollider.bounds.extents.y - groundCheckWidth);
+
+        if (Physics2D.OverlapArea(pointA, pointB, groundMask))
         {
-            xVelocity -= velocityChange;
-            if (xVelocity < 0) xVelocity = 0;
+            grounded = true;
         }
         else
         {
-            xVelocity += velocityChange;
-            if (xVelocity > 0) xVelocity = 0;
+            grounded = false;
         }
-
-        rb.velocity = new Vector2(xVelocity, rb.velocity.y);
     }
 
-    private int GetHorizontalInput()
+    #region Input Functions
+
+    private void GetHorizontalInput()
     {
         float xAxis = Input.GetAxisRaw("Horizontal");
 
-        //Controller joystick snap
+        // Controller joystick snap
         xAxis = (xAxis > 0.1f) ? 1 : (xAxis < -0.1f) ? -1 : 0;
 
-        return (int)xAxis;
+        xAxisInput = (int)xAxis;
     }
+
+    private void GetJumpInput()
+    {
+        if (Input.GetButtonDown("Jump"))
+        {
+            jumpKey = true;
+        }
+    }
+
+    #endregion
+
 }

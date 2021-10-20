@@ -203,7 +203,7 @@ Transform:
   m_GameObject: {fileID: 199394784}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.91322273, y: -0.019868635, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.75, y: 1.5, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 1
@@ -220,10 +220,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f4f7949c4842af4b842ab7af301c782, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  acceleration: 20
-  deceleration: 30
-  friction: 10
+  acceleration: 30
+  deceleration: 40
   topSpeed: 10
+  airControl: 0.7
+  jumpHeight: 3
+  timeToApex: 0.27
+  groundMask:
+    serializedVersion: 2
+    m_Bits: 64
+  recalculateVariables: 0
 --- !u!61 &199394788
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -266,7 +272,7 @@ Rigidbody2D:
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: ec45e267194fd304f8d71f85db74ccf2, type: 2}
   m_Interpolate: 1
   m_SleepingMode: 1
   m_CollisionDetection: 1
@@ -365,7 +371,7 @@ GameObject:
   - component: {fileID: 1297453260}
   - component: {fileID: 1297453259}
   - component: {fileID: 1297453258}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Platform
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -457,8 +463,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1297453257}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.605, y: -3.53, z: 0}
-  m_LocalScale: {x: 11.114747, y: 0.5238, z: 1}
+  m_LocalPosition: {x: -0.3117, y: -3.53, z: 0}
+  m_LocalScale: {x: 19.50642, y: 0.5238, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 2
