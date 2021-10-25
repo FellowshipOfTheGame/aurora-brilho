@@ -8,7 +8,9 @@ public class Collectable : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            Grimoire.collectables.Add(this);
+            ref List<Collectable> collectablesList = ref Grimoire.collectables;
+            collectablesList.Add(this);
+            Grimoire.displayNewLore(collectablesList.Count - 1);
             Destroy(gameObject);
         }
     }
