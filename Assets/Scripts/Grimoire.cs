@@ -4,25 +4,8 @@ using UnityEngine;
 
 public class Grimoire : MonoBehaviour
 {
-    #region Singleton
+    static public List<Collectable> collectables;
 
-    public static Grimoire instance;
-
-    private void Awake()
-    {
-        if (instance == null)
-        {
-            instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else if (instance != this)
-        {
-            Destroy(gameObject);
-        }
-    }
-    #endregion
-
-    public List<Collectable> collectables;
     // Start is called before the first frame update
     void Start()
     {
