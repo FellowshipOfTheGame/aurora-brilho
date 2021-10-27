@@ -97,4 +97,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   offset: {x: -0.9, y: 2.5, z: 0}
   follow: {fileID: 0}
-  delayVelocity: 10
+  delayVelocity: 0.07
