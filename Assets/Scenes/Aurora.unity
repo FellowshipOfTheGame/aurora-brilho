@@ -134,10 +134,6 @@ PrefabInstance:
       propertyPath: follow
       value: 
       objectReference: {fileID: 1460285033}
-    - target: {fileID: 3504765938000223930, guid: a7f1a680e3cea5b44991887e817a4e0d, type: 3}
-      propertyPath: delayVelocity
-      value: 0.07
-      objectReference: {fileID: 0}
     - target: {fileID: 3504765938000223931, guid: a7f1a680e3cea5b44991887e817a4e0d, type: 3}
       propertyPath: m_Name
       value: Firefly
