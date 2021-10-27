@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 4627108798632549638}
   - component: {fileID: 4627108798632549639}
   - component: {fileID: 4627108798632549632}
+  - component: {fileID: 422076133035924141}
   m_Layer: 0
   m_Name: Aurora
   m_TagString: Untagged
@@ -29,7 +30,7 @@ Transform:
   m_GameObject: {fileID: 4627108798632549635}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -1.03, y: 1.47, z: 0}
-  m_LocalScale: {x: 0.75, y: 1.5, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -74,7 +75,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
+  m_Sprite: {fileID: -13559271439482278, guid: 81ad8ddd3ffc33e4cae9fca8ca9e4634, type: 3}
   m_Color: {r: 0.8867924, g: 0.33882165, b: 0.8765853, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -119,18 +120,18 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: 1.25}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
+    pivot: {x: 0.5, y: 0}
+    oldSize: {x: 6, y: 5.25}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.9, y: 2.5}
   m_EdgeRadius: 0
 --- !u!114 &4627108798632549632
 MonoBehaviour:
@@ -144,8 +145,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f4f7949c4842af4b842ab7af301c782, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  accelerationTime: 0.25
-  decelerationTime: 0.18
+  accelerationTime: 0.15
+  decelerationTime: 0.1
   topSpeed: 10
   airControl: 0.75
   fallMultiplier: 1.34
@@ -161,3 +162,22 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   recalculateVariables: 0
+--- !u!95 &422076133035924141
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4627108798632549635}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 669d490aeef3f064bafea3151e96ce1a, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0

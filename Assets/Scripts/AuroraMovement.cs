@@ -44,10 +44,13 @@ public class AuroraMovement : MonoBehaviour
     float wallInputTiming;
     float jumpInputTiming;
     bool jumping, jumpCutEarly;
+    bool facingRight;
 
     // Cached components
     Rigidbody2D rb;
     BoxCollider2D boxCollider;
+    Animator animator;
+    SpriteRenderer spriteRenderer;
 
     // Input variables
     int xAxisInput;
@@ -62,6 +65,8 @@ public class AuroraMovement : MonoBehaviour
         // Get components
         rb = GetComponent<Rigidbody2D>();
         boxCollider = GetComponent<BoxCollider2D>();
+        animator = GetComponent<Animator>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
 
         // Initialize jump related variables
         gravity = -2 * jumpHeight / (timeToApex * timeToApex);
@@ -84,7 +89,6 @@ public class AuroraMovement : MonoBehaviour
             RecalculateVariables();
         }
     }
-
     private void FixedUpdate()
     {
         CheckGrounded(); // updates grounded variable
@@ -163,6 +167,35 @@ public class AuroraMovement : MonoBehaviour
         {
             rb.gravityScale = gravityScale * fallMultiplier;
         }
+
+        SetAnimationParameters();
+        FlipSprite();
+    }
+
+    private void FlipSprite()
+    {
+        if (wallSliding)
+        {
+            facingRight = walledRight ? true : false;
+        }
+        else if (rb.velocity.x > 0)
+        {
+            facingRight = true;
+        }
+        else if (rb.velocity.x < 0)
+        {
+            facingRight = false;
+        }
+
+        spriteRenderer.flipX = !facingRight;
+    }
+
+    private void SetAnimationParameters()
+    {
+        animator.SetBool("grounded", grounded);
+        animator.SetBool("walled", wallSliding);
+        animator.SetFloat("xVelocity", rb.velocity.x);
+        animator.SetFloat("yVelocity", rb.velocity.y);
     }
 
     private void WallSlide()
