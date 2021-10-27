@@ -24,7 +24,7 @@ public class AuroraMovement : MonoBehaviour
     [SerializeField] float timeToApex;
     [SerializeField] float coyoteTime;
     [SerializeField] float jumpToleranceInput;
-    const int jumpsQuantity = 2;
+    [SerializeField] int jumpsQuantity = 2;
 
     [Header("Wall Movement")]
     [SerializeField] float wallSilidingTopSpeed;
