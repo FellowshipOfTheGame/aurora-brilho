@@ -6,25 +6,23 @@ using UnityEngine;
 public class AuroraMovement : MonoBehaviour
 {
     [Header("Horizontal Movement")]
+    float acceleration;
+    float deceleration;
     [SerializeField] float accelerationTime;
     [SerializeField] float decelerationTime;
     [SerializeField] float topSpeed;
     [SerializeField] [Range(0, 1)] float airControl;
-    float acceleration;
-    float deceleration;
 
     [Header("Vertical Movement")]
     [SerializeField] float fallMultiplier;
-    [SerializeField] float lowJumpMultiplier;
-    float gravityScale;
-    float gravity;
+    [SerializeField] float hangTime;
 
     [Header("Jump Variables")]
     [SerializeField] float jumpHeight;
     [SerializeField] float timeToApex;
     [SerializeField] float coyoteTime;
-    [SerializeField] float jumpToleranceInput;
     const int jumpsQuantity = 2;
+    float gravity;
 
     [Header("Wall Movement")]
     [SerializeField] float wallSilidingTopSpeed;
@@ -42,8 +40,7 @@ public class AuroraMovement : MonoBehaviour
     bool walledLeft, walledRight;
     bool wallSliding;
     float wallInputTiming;
-    float jumpInputTiming;
-    bool jumping, jumpCutEarly;
+    bool jumping;
 
     // Cached components
     Rigidbody2D rb;
@@ -51,8 +48,7 @@ public class AuroraMovement : MonoBehaviour
 
     // Input variables
     int xAxisInput;
-    bool jumpKeyPressed;
-    bool jumpKeyReleased;
+    bool jumpKey;
 
     [Header("Debug")]
     [SerializeField] bool recalculateVariables;
@@ -65,8 +61,7 @@ public class AuroraMovement : MonoBehaviour
 
         // Initialize jump related variables
         gravity = -2 * jumpHeight / (timeToApex * timeToApex);
-        gravityScale = gravity / Physics2D.gravity.y;
-        rb.gravityScale = gravityScale;
+        rb.gravityScale = gravity / Physics2D.gravity.y;
 
         // Initialize horizontal movement variables
         acceleration = topSpeed / accelerationTime;
@@ -111,57 +106,21 @@ public class AuroraMovement : MonoBehaviour
         }
 
         if (grounded || wallSliding)
-        {
             jumpsAvailable = jumpsQuantity; // reset jumps
-            jumping = false;
-            jumpCutEarly = false;
-        }
         else if (jumpsAvailable == jumpsQuantity && coyoteTimePassed < 0)
             jumpsAvailable--; // lose one jump if not walled and if not grounded after coyoteTime has passed
 
         // It takes care of horizontal movement on ground and on air
         HorizontalMovement();
 
-        if (jumpKeyPressed)
+        if (jumpKey)
         {
+            jumpKey = false; // resets key even if not able to jump
             if (jumpsAvailable > 0)
             {
                 Jump();
                 jumpsAvailable--;
-                jumping = true;
-
-                // reset variables
-                jumpKeyPressed = false;
-                jumpInputTiming = jumpToleranceInput;
-                jumpCutEarly = false;
             }
-            else
-            {
-                jumpInputTiming -= Time.deltaTime;
-                if (jumpInputTiming < 0)
-                {
-                    jumpKeyPressed = false;
-                    jumpInputTiming = jumpToleranceInput;
-                }
-            }
-        }
-
-        if (jumping && jumpKeyReleased)
-        {
-            jumpCutEarly = true;
-        }
-        jumpKeyReleased = false;
-
-        if (rb.velocity.y >= 0)
-        {
-            if (jumpCutEarly)
-                rb.gravityScale = gravityScale * lowJumpMultiplier;
-            else
-                rb.gravityScale = gravityScale;
-        }
-        else
-        {
-            rb.gravityScale = gravityScale * fallMultiplier;
         }
     }
 
@@ -329,11 +288,7 @@ public class AuroraMovement : MonoBehaviour
     {
         if (Input.GetButtonDown("Jump"))
         {
-            jumpKeyPressed = true;
-        }
-        if (Input.GetButtonUp("Jump"))
-        {
-            jumpKeyReleased = true;
+            jumpKey = true;
         }
     }
 
@@ -342,7 +297,7 @@ public class AuroraMovement : MonoBehaviour
     void RecalculateVariables()
     {
         gravity = -2 * jumpHeight / (timeToApex * timeToApex);
-        gravityScale = gravity / Physics2D.gravity.y;
+        rb.gravityScale = gravity / Physics2D.gravity.y;
 
         acceleration = topSpeed / accelerationTime;
         deceleration = topSpeed / decelerationTime;
