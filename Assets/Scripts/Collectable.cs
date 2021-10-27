@@ -4,13 +4,19 @@ using UnityEngine;
 
 public class Collectable : MonoBehaviour
 {
+    private Grimoire grimoire;
+
+    private void Awake()
+    {
+        grimoire = FindObjectOfType<Grimoire>();
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
         {
-            ref List<Collectable> collectablesList = ref Grimoire.collectables;
-            collectablesList.Add(this);
-            Grimoire.displayNewLore(collectablesList.Count - 1);
+            grimoire.collectables.Add(this);
+            grimoire.displayNewLore(grimoire.collectables.Count - 1);
             Destroy(gameObject);
         }
     }
