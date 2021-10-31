@@ -1,9 +1,8 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AuroraMovement : MonoBehaviour
+public class CorujaMovement : MonoBehaviour
 {
     [Header("Horizontal Movement")]
     [SerializeField] float accelerationTime;
@@ -24,12 +23,7 @@ public class AuroraMovement : MonoBehaviour
     [SerializeField] float timeToApex;
     const float coyoteTime = 0.1f;
     const float jumpToleranceInput = 0.08f;
-    const int jumpsQuantity = 2;
-
-    [Header("Wall Movement")]
-    [SerializeField] float wallSilidingTopSpeed;
-    [SerializeField] float wallJumpAngle;
-    [SerializeField] float leaveWallToleranceTime;
+    const int jumpsQuantity = 3;
 
     [Header("Ground Check")]
     [SerializeField] LayerMask groundMask;
@@ -39,9 +33,6 @@ public class AuroraMovement : MonoBehaviour
     bool grounded;
     float coyoteTimePassed;
     int jumpsAvailable;
-    bool walledLeft, walledRight;
-    bool wallSliding;
-    float wallInputTiming;
     float jumpInputTiming;
     bool jumping, jumpCutEarly;
     bool facingRight;
@@ -89,10 +80,10 @@ public class AuroraMovement : MonoBehaviour
             RecalculateVariables();
         }
     }
+
     private void FixedUpdate()
     {
         CheckGrounded(); // updates grounded variable
-        CheckWalled(); // updates walled variables
 
         if (grounded)
         {
@@ -103,18 +94,7 @@ public class AuroraMovement : MonoBehaviour
             coyoteTimePassed -= Time.deltaTime;
         }
 
-        if ((walledRight || walledLeft) && !grounded)
-        {
-            wallSliding = true;
-            WallSlide();
-        }
-        else
-        {
-            wallSliding = false;
-            wallInputTiming = 0f;
-        }
-
-        if (grounded || wallSliding)
+        if (grounded)
         {
             jumpsAvailable = jumpsQuantity; // reset jumps
             jumping = false;
@@ -174,11 +154,7 @@ public class AuroraMovement : MonoBehaviour
 
     private void FlipSprite()
     {
-        if (wallSliding)
-        {
-            facingRight = walledRight ? true : false;
-        }
-        else if (rb.velocity.x > 0)
+        if (rb.velocity.x > 0)
         {
             facingRight = true;
         }
@@ -193,65 +169,27 @@ public class AuroraMovement : MonoBehaviour
     private void SetAnimationParameters()
     {
         animator.SetBool("grounded", grounded);
-        animator.SetBool("walled", wallSliding);
         animator.SetFloat("xVelocity", rb.velocity.x);
         animator.SetFloat("yVelocity", rb.velocity.y);
     }
 
-    private void WallSlide()
-    {
-        // Limit vertical velocity while wall sliding
-        float ySpeed = (rb.velocity.y < -wallSilidingTopSpeed) ? -wallSilidingTopSpeed : rb.velocity.y;
-        rb.velocity = new Vector2(rb.velocity.x, ySpeed);
-
-        // To leave wall you have to hold input button for a certain time
-        if (xAxisInput == 1 && walledLeft || xAxisInput == -1 && walledRight)
-        {
-            wallInputTiming += Time.deltaTime;
-        }
-        else
-        {
-            wallInputTiming = 0f;
-        }
-
-        if (wallInputTiming >= leaveWallToleranceTime)
-        {
-            wallSliding = false; // it means you can move horizontally now and are not wall sliding anymore
-        }
-    }
-
     private void Jump()
     {
-        float jumpVelocity = -gravity * timeToApex;
-
-        if (!wallSliding)
-        {
-            // y velocity is set to jump force, current velocity is overwritten
-            rb.velocity = new Vector2(rb.velocity.x, -gravity * timeToApex);
-        }
-        else
-        {
-            if (walledLeft)
-                rb.velocity = new Vector2(jumpVelocity * Mathf.Cos(wallJumpAngle * Mathf.Deg2Rad), jumpVelocity * Mathf.Sin(wallJumpAngle * Mathf.Deg2Rad));
-            else
-                rb.velocity = new Vector2(-jumpVelocity * Mathf.Cos(wallJumpAngle * Mathf.Deg2Rad), jumpVelocity * Mathf.Sin(wallJumpAngle * Mathf.Deg2Rad));
-        }
+        // y velocity is set to jump force, current velocity is overwritten
+        rb.velocity = new Vector2(rb.velocity.x, -gravity * timeToApex);
     }
 
     private void HorizontalMovement()
     {
         bool inputInDirectionOfMovement = (xAxisInput == 1 && rb.velocity.x >= 0) || (xAxisInput == -1 && rb.velocity.x <= 0);
-        
-        if (!wallSliding)
+
+        if (inputInDirectionOfMovement && Mathf.Abs(rb.velocity.x) <= topSpeed)
         {
-            if (inputInDirectionOfMovement && Mathf.Abs(rb.velocity.x) <= topSpeed)
-            {
-                Accelerate();
-            }
-            else
-            {
-                Decelerate();
-            }
+            Accelerate();
+        }
+        else
+        {
+            Decelerate();
         }
     }
 
@@ -311,41 +249,6 @@ public class AuroraMovement : MonoBehaviour
         }
     }
 
-    private void CheckWalled()
-    {
-        Vector2 pointA, pointB;
-
-        // walled left
-        pointA = new Vector2(boxCollider.bounds.center.x - boxCollider.bounds.extents.x - groundCheckWidth,
-            boxCollider.bounds.center.y + boxCollider.bounds.extents.y - groundCheckWidth);
-        pointB = new Vector2(boxCollider.bounds.center.x - boxCollider.bounds.extents.x + groundCheckWidth,
-            boxCollider.bounds.center.y - boxCollider.bounds.extents.y + groundCheckWidth);
-
-        if (Physics2D.OverlapArea(pointA, pointB, groundMask))
-        {
-            walledLeft = true;
-        }
-        else
-        {
-            walledLeft = false;
-        }
-
-        // walled right
-        pointA = new Vector2(boxCollider.bounds.center.x + boxCollider.bounds.extents.x - groundCheckWidth,
-            boxCollider.bounds.center.y + boxCollider.bounds.extents.y - groundCheckWidth);
-        pointB = new Vector2(boxCollider.bounds.center.x + boxCollider.bounds.extents.x + groundCheckWidth,
-            boxCollider.bounds.center.y - boxCollider.bounds.extents.y + groundCheckWidth);
-
-        if (Physics2D.OverlapArea(pointA, pointB, groundMask))
-        {
-            walledRight = true;
-        }
-        else
-        {
-            walledRight = false;
-        }
-    }
-
     #region Input Functions
 
     private void GetHorizontalInput()
@@ -379,10 +282,5 @@ public class AuroraMovement : MonoBehaviour
 
         acceleration = topSpeed / accelerationTime;
         deceleration = topSpeed / decelerationTime;
-    }
-
-    private void OnTriggerStay2D(Collider2D collision)
-    {
-        Debug.Log(collision);
     }
 }
