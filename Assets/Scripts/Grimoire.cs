@@ -31,10 +31,8 @@ public class Grimoire : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.Escape))
         {
-            bool grimoireCanvasActive = grimoireCanvas.activeInHierarchy;
-
-            grimoireCanvas.SetActive(!grimoireCanvasActive);
-            Time.timeScale = grimoireCanvasActive ? 0f : 1f;
+            grimoireCanvas.SetActive(!grimoireCanvas.activeInHierarchy);
+            Time.timeScale = grimoireCanvas.activeInHierarchy ? 0f : 1f;
         }
     }
 
