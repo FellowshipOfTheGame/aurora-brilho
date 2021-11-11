@@ -44,12 +44,12 @@ public class AuroraMovement : MonoBehaviour
     float wallInputTiming;
     float jumpInputTiming;
     bool jumping, jumpCutEarly;
-    bool facingRight;
+    bool facingRight = true;
 
-    // Cached components
+    [Header("Cached components")]
+    [SerializeField] Animator animator;
     Rigidbody2D rb;
     BoxCollider2D boxCollider;
-    Animator animator;
     SpriteRenderer spriteRenderer;
 
     // Input variables
@@ -65,7 +65,7 @@ public class AuroraMovement : MonoBehaviour
         // Get components
         rb = GetComponent<Rigidbody2D>();
         boxCollider = GetComponent<BoxCollider2D>();
-        animator = GetComponent<Animator>();
+        // animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
 
         // Initialize jump related variables
@@ -132,6 +132,11 @@ public class AuroraMovement : MonoBehaviour
             {
                 Jump();
                 jumpsAvailable--;
+
+                // temporary workaround
+                if (jumping)
+                    animator.SetTrigger("doubleJump");
+
                 jumping = true;
 
                 // reset variables
@@ -187,7 +192,12 @@ public class AuroraMovement : MonoBehaviour
             facingRight = false;
         }
 
-        spriteRenderer.flipX = !facingRight;
+        //spriteRenderer.flipX = !facingRight;
+
+        if (facingRight)
+            transform.rotation = Quaternion.Euler(0, 0, 0);
+        else
+            transform.rotation = Quaternion.Euler(0, 180, 0);
     }
 
     private void SetAnimationParameters()
