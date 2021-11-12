@@ -27,8 +27,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4965299425704118499}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -11.59, y: -1.2917, z: 0}
-  m_LocalScale: {x: 1, y: 1.083, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -157,9 +157,9 @@ EdgeCollider2D:
   m_Offset: {x: 0, y: 0}
   m_EdgeRadius: 0
   m_Points:
-  - {x: 0.8200654, y: 1.617026}
-  - {x: 3.7414784, y: 1.6130849}
-  - {x: 3.9914782, y: 1.612747}
+  - {x: 0.75790167, y: 1.8671098}
+  - {x: 3.7418165, y: 1.8630847}
+  - {x: 4.054316, y: 1.8626623}
   m_AdjacentStartPoint: {x: 0, y: 0}
   m_AdjacentEndPoint: {x: 0, y: 0}
   m_UseAdjacentStartPoint: 0
