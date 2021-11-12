@@ -48,6 +48,7 @@ public class AuroraMovement : MonoBehaviour
 
     [Header("Cached components")]
     [SerializeField] Animator animator;
+    [SerializeField] Transform modelTransform; 
     Rigidbody2D rb;
     BoxCollider2D boxCollider;
     SpriteRenderer spriteRenderer;
@@ -195,9 +196,9 @@ public class AuroraMovement : MonoBehaviour
         //spriteRenderer.flipX = !facingRight;
 
         if (facingRight)
-            transform.rotation = Quaternion.Euler(0, 0, 0);
+            modelTransform.rotation = Quaternion.Euler(0, 0, 0);
         else
-            transform.rotation = Quaternion.Euler(0, 180, 0);
+            modelTransform.rotation = Quaternion.Euler(0, 180, 0);
     }
 
     private void SetAnimationParameters()
