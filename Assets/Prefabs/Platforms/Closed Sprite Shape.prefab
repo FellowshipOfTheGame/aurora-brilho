@@ -43,7 +43,7 @@ SpriteShapeRenderer:
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
+  m_DynamicOccludee: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -76,23 +76,20 @@ SpriteShapeRenderer:
   m_SortingOrder: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_MaskInteraction: 0
-  m_ShapeTexture: {fileID: 2800000, guid: afae81a36b26f894cb23d8a2a45f6dbe, type: 3}
+  m_ShapeTexture: {fileID: 2800000, guid: b281b91a70a624a0da1c43adc1c30c7b, type: 3}
   m_Sprites:
-  - {fileID: 21300000, guid: f499f8d9d949cce42b43e685783d2149, type: 3}
-  - {fileID: 21300000, guid: bd2912ca64a335443b5b9988969a4e11, type: 3}
-  - {fileID: 21300000, guid: a82a65f1e2c7cbc498c3a75b54cbb784, type: 3}
-  - {fileID: 21300000, guid: 2ffc76621b20953488c4c557aac3cba3, type: 3}
-  - {fileID: 21300000, guid: f0d7dc7b58085d848b97808e2141f32e, type: 3}
-  - {fileID: 21300000, guid: cbad707c6dbf6fe45a8d328882426d36, type: 3}
-  - {fileID: 21300000, guid: 18eec9a4e31f4044f8966779cc2f3147, type: 3}
-  - {fileID: 21300000, guid: 31d7e4b8a5ae23f4bbe53522fa38021d, type: 3}
-  - {fileID: 21300000, guid: afae81a36b26f894cb23d8a2a45f6dbe, type: 3}
-  - {fileID: 21300000, guid: afae81a36b26f894cb23d8a2a45f6dbe, type: 3}
-  - {fileID: 21300000, guid: afae81a36b26f894cb23d8a2a45f6dbe, type: 3}
-  - {fileID: 21300000, guid: afae81a36b26f894cb23d8a2a45f6dbe, type: 3}
+  - {fileID: 21300000, guid: 0ae2b74b1edd14bb18dd7b65ae916a54, type: 3}
+  - {fileID: 21300000, guid: 608e61deb05c54660bebf5a4dd2ee02d, type: 3}
+  - {fileID: 21300000, guid: 608e61deb05c54660bebf5a4dd2ee02d, type: 3}
+  - {fileID: 21300000, guid: 608e61deb05c54660bebf5a4dd2ee02d, type: 3}
+  - {fileID: 21300000, guid: 608e61deb05c54660bebf5a4dd2ee02d, type: 3}
+  - {fileID: 21300000, guid: 608e61deb05c54660bebf5a4dd2ee02d, type: 3}
+  - {fileID: 21300000, guid: 608e61deb05c54660bebf5a4dd2ee02d, type: 3}
+  - {fileID: 21300000, guid: 608e61deb05c54660bebf5a4dd2ee02d, type: 3}
+  - {fileID: 21300000, guid: 608e61deb05c54660bebf5a4dd2ee02d, type: 3}
   m_LocalAABB:
-    m_Center: {x: -0.5174618, y: -1.8371582, z: 0}
-    m_Extent: {x: 7.5661345, y: 1.4711928, z: 0}
+    m_Center: {x: -10.843824, y: -6.1883163, z: 0}
+    m_Extent: {x: 21.211626, y: 1.8163509, z: 0}
 --- !u!114 &81878969934171866
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -108,7 +105,7 @@ MonoBehaviour:
   m_Spline:
     m_IsOpenEnded: 0
     m_ControlPoints:
-    - position: {x: -7.5646477, y: -0.87187004, z: 0}
+    - position: {x: -31.796642, y: -4.6229534, z: 0}
       leftTangent: {x: 0, y: 0, z: 0}
       rightTangent: {x: 0, y: 0, z: 0}
       mode: 0
@@ -118,7 +115,7 @@ MonoBehaviour:
       spriteIndex: 0
       corner: 1
       m_CornerMode: 1
-    - position: {x: 6.523364, y: -1.0311408, z: 0}
+    - position: {x: 10.106067, y: -4.7822247, z: 0}
       leftTangent: {x: 0, y: 0, z: 0}
       rightTangent: {x: 0, y: 0, z: 0}
       mode: 0
@@ -128,7 +125,7 @@ MonoBehaviour:
       spriteIndex: 0
       corner: 1
       m_CornerMode: 1
-    - position: {x: 6.435172, y: -2.7960765, z: 0}
+    - position: {x: 10.116887, y: -7.7542095, z: 0}
       leftTangent: {x: 0, y: 0, z: 0}
       rightTangent: {x: 0, y: 0, z: 0}
       mode: 0
@@ -138,7 +135,7 @@ MonoBehaviour:
       spriteIndex: 0
       corner: 1
       m_CornerMode: 1
-    - position: {x: -7.4934273, y: -2.8079405, z: 0}
+    - position: {x: -31.691238, y: -7.6779404, z: 0}
       leftTangent: {x: 0, y: 0, z: 0}
       rightTangent: {x: 0, y: 0, z: 0}
       mode: 0
@@ -148,7 +145,7 @@ MonoBehaviour:
       spriteIndex: 0
       corner: 1
       m_CornerMode: 1
-  m_SpriteShape: {fileID: 11400000, guid: 08c682eb76f3442448e6e24dd04eb072, type: 2}
+  m_SpriteShape: {fileID: 11400000, guid: db6e7e668cb8a5741ac405e2c1a1c6cc, type: 2}
   m_FillPixelPerUnit: 16
   m_StretchTiling: 1
   m_SplineDetail: 16
@@ -189,10 +186,10 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: -8.083596, y: -0.36596552}
-      - {x: 7.0486727, y: -0.5370477}
-      - {x: 6.9108315, y: -3.2956712}
-      - {x: -7.9753666, y: -3.308351}
-      - {x: -8.044588, y: -1.4263747}
-      - {x: -8.045023, y: -1.4145322}
-      - {x: -8.083596, y: -0.36596552}
+    - - {x: -32.05545, y: -4.3719654}
+      - {x: 10.355163, y: -4.5331697}
+      - {x: 10.367801, y: -8.004667}
+      - {x: -31.932812, y: -7.9275}
+      - {x: -32.036415, y: -4.9237185}
+      - {x: -32.037537, y: -4.8911686}
+      - {x: -32.05545, y: -4.3719654}
