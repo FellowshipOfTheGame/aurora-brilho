@@ -10,7 +10,7 @@ public class Grimoire : MonoBehaviour
     public uint collectablesCount = 0;
     public string[] loreStrings = new string[] { "Teste", "Teste2", "Teste3", "Teste4", "Teste5", "Teste6", "Teste7", "Teste8", "Teste9", "Teste10", "Teste11" };
 
-    [SerializeField] private Animator bookAnimator = null;
+    // [SerializeField] private Animator bookAnimator = null;
     [SerializeField] private GameObject loreGameObject;
     [SerializeField] private GameObject minimapGameObject;
     [SerializeField] private GameObject grimoireCanvas;
