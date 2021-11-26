@@ -216,13 +216,12 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: -19.9, y: -0.45}
-      - {x: 0.099999994, y: -0.45}
-      - {x: 0.099999994, y: 9.55}
-      - {x: 9.9, y: 9.55}
-      - {x: 9.9, y: -9.95}
-      - {x: -1.5, y: -9.95}
-      - {x: -19.9, y: -9.95}
+    - - {x: -19.5, y: -0.5}
+      - {x: 0.5, y: -0.5}
+      - {x: 0.5, y: 9.5}
+      - {x: 9.5, y: 9.5}
+      - {x: 9.5, y: -9.5}
+      - {x: -19.5, y: -9.5}
 --- !u!114 &1698238511862888943
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -236,6 +235,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   updateCollider: 0
-  topOffset: 0.05
-  sideOffset: 0.4
-  bottomOffset: 0.45
+  offset: -0

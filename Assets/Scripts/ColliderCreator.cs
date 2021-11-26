@@ -9,9 +9,8 @@ public class ColliderCreator : MonoBehaviour
 #pragma warning disable CS0414
     [SerializeField] bool updateCollider;
 #pragma warning restore CS0414
-    [SerializeField] [Range(-1f, 1f)] float topOffset;
-    [SerializeField] [Range(-1f, 1f)] float sideOffset;
-    [SerializeField] [Range(-1f, 1f)] float bottomOffset;
+    
+    [SerializeField] [Range(-10f, 10f)] float offset;
 
     private void OnValidate()
     {
@@ -20,6 +19,52 @@ public class ColliderCreator : MonoBehaviour
     }
 
     private void UpdateCollider()
+    {
+        Spline spline = GetComponent<SpriteShapeController>().spline;
+
+        List<Vector2> colliderPoints = new List<Vector2>();
+
+        int pointCount = spline.GetPointCount();
+        for (int i = 0; i < pointCount; i++)
+        {
+            Vector2 previousPosition = spline.GetPosition((i - 1 + pointCount) % pointCount);
+            Vector2 currentPosition = spline.GetPosition(i);
+            Vector2 nextPosition = spline.GetPosition((i + 1) % pointCount);
+
+            Vector2 a = previousPosition - currentPosition;
+            Vector2 b = nextPosition - currentPosition;
+
+            Vector2 bisector = (a.normalized + b.normalized).normalized;
+            if (bisector == Vector2.zero)
+                continue;
+
+            if (Vector2.SignedAngle(a, bisector) < 0)
+            {
+                colliderPoints.Add(currentPosition + (bisector * offset));
+            }
+            else
+            {
+                colliderPoints.Add(currentPosition - (bisector * offset));
+            }
+        }
+
+        GetComponent<PolygonCollider2D>().SetPath(0, colliderPoints);
+    }
+
+    float Orientation(Vector2 a, Vector2 b, Vector2 c)
+    {
+        // The following determinant formula gives twice the (signed) area of the triangle a->b->c
+        // If the area is positive, then a->b->c is counterclockwise
+        // if the area is negative, then a->b->c is clockwise
+        // if the area is zero then a->b->c are collinear
+        return (b.x - a.x) * (c.y - a.y) - (c.x - a.x) * (b.y - a.y);
+    }
+
+    //[SerializeField] [Range(-1f, 1f)] float topOffset;
+    //[SerializeField] [Range(-1f, 1f)] float sideOffset;
+    //[SerializeField] [Range(-1f, 1f)] float bottomOffset;
+
+    /*private void UpdateCollider()
     {
         Spline spline = GetComponent<SpriteShapeController>().spline;
 
@@ -73,5 +118,5 @@ public class ColliderCreator : MonoBehaviour
         }
 
         return Vector2.zero;
-    }
+    }*/
 }
