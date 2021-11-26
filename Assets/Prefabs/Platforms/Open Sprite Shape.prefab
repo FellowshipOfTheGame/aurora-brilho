@@ -125,8 +125,8 @@ MonoBehaviour:
       spriteIndex: 0
       corner: 1
       m_CornerMode: 1
-  m_SpriteShape: {fileID: 11400000, guid: a0aeefa14bc1bea4796c54f20e079f3b, type: 2}
-  m_FillPixelPerUnit: 16
+  m_SpriteShape: {fileID: 11400000, guid: 3ac66055210ee394c981805a989549ba, type: 2}
+  m_FillPixelPerUnit: 45
   m_StretchTiling: 1
   m_SplineDetail: 16
   m_AdaptiveUV: 1
