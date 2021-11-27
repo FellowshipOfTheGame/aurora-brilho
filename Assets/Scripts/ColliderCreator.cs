@@ -10,7 +10,7 @@ public class ColliderCreator : MonoBehaviour
     [SerializeField] bool updateCollider;
 #pragma warning restore CS0414
     
-    [SerializeField] [Range(-10f, 10f)] float offset;
+    [SerializeField] [Range(-1f, 1f)] float offset;
 
     private void OnValidate()
     {
@@ -31,25 +31,64 @@ public class ColliderCreator : MonoBehaviour
             Vector2 currentPosition = spline.GetPosition(i);
             Vector2 nextPosition = spline.GetPosition((i + 1) % pointCount);
 
-            Vector2 a = previousPosition - currentPosition;
-            Vector2 b = nextPosition - currentPosition;
+            Vector2 a = (previousPosition - currentPosition).normalized;
+            Vector2 b = (nextPosition - currentPosition).normalized;
 
-            Vector2 bisector = (a.normalized + b.normalized).normalized;
+            Vector2 bisector = (a + b).normalized;
             if (bisector == Vector2.zero)
                 continue;
 
+            float midAngle = -Vector2.SignedAngle(a, b);
+            if (midAngle < 0) midAngle += 360;
+            midAngle = (midAngle / 2) * Mathf.Deg2Rad;
+
             if (Vector2.SignedAngle(a, bisector) < 0)
             {
-                colliderPoints.Add(currentPosition + (bisector * offset));
+                colliderPoints.Add(currentPosition + (bisector * (offset / Mathf.Sin(midAngle))));
             }
             else
             {
-                colliderPoints.Add(currentPosition - (bisector * offset));
+                colliderPoints.Add(currentPosition - (bisector * (offset / Mathf.Sin(midAngle))));
             }
         }
 
         GetComponent<PolygonCollider2D>().SetPath(0, colliderPoints);
     }
+
+    /*private void UpdateCollider2()
+    {
+        Spline spline = GetComponent<SpriteShapeController>().spline;
+
+        List<Vector2> colliderPoints = new List<Vector2>();
+
+        int pointCount = spline.GetPointCount();
+        for (int i = 0; i < pointCount; i++)
+        {
+            Vector2 previousPosition = spline.GetPosition((i - 1 + pointCount) % pointCount);
+            Vector2 currentPosition = spline.GetPosition(i);
+            Vector2 nextPosition = spline.GetPosition((i + 1) % pointCount);
+
+            Vector2 a = previousPosition - currentPosition;
+            Vector2 b = nextPosition - currentPosition;
+
+
+            // varying offsets
+            float d1 = (a.magnitude > 30) ? offset1 : offset2;
+            float d2 = (b.magnitude > 30) ? offset1 : offset2;
+            Debug.Log(d1 + " " + d2);
+            float theta = Vector2.SignedAngle(a, b);
+            if (theta < 0) theta += 360;
+            theta *= Mathf.Deg2Rad;
+            float theta_2 = Mathf.Atan((d2 * Mathf.Sin(theta)) / (d1 + d2 * Mathf.Cos(theta)));
+
+            Vector2 new_vector = new Vector2(Mathf.Cos(theta_2) * a.x - Mathf.Sin(theta_2) * a.y,
+                                             Mathf.Sin(theta_2) * a.x + Mathf.Cos(theta_2) * a.y);
+
+            colliderPoints.Add(currentPosition - (new_vector.normalized * (d2 / Mathf.Sin(theta_2))));
+        }
+
+        GetComponent<PolygonCollider2D>().SetPath(0, colliderPoints);
+    }*/
 
     float Orientation(Vector2 a, Vector2 b, Vector2 c)
     {
@@ -59,64 +98,4 @@ public class ColliderCreator : MonoBehaviour
         // if the area is zero then a->b->c are collinear
         return (b.x - a.x) * (c.y - a.y) - (c.x - a.x) * (b.y - a.y);
     }
-
-    //[SerializeField] [Range(-1f, 1f)] float topOffset;
-    //[SerializeField] [Range(-1f, 1f)] float sideOffset;
-    //[SerializeField] [Range(-1f, 1f)] float bottomOffset;
-
-    /*private void UpdateCollider()
-    {
-        Spline spline = GetComponent<SpriteShapeController>().spline;
-
-        int pointCount = spline.GetPointCount();
-        Vector2[] colliderPoints = new Vector2[pointCount];
-
-        for (int i = 0; i < pointCount; i++)
-        {
-            Vector2 previousPosition = spline.GetPosition((i - 1 + pointCount) % pointCount);
-            Vector2 nextPosition = spline.GetPosition((i + 1) % pointCount);
-            Vector2 currentPosition = spline.GetPosition(i);
-
-            Vector2 offset1 = GetOffset(previousPosition, currentPosition);
-            Vector2 offset2 = GetOffset(currentPosition, nextPosition);
-
-            if (offset1 == Vector2.zero || offset2 == Vector2.zero)
-                return;
-
-            colliderPoints[i] = currentPosition + offset1;
-            if (offset2 != offset1)
-                colliderPoints[i] += offset2;
-        }
-
-        GetComponent<PolygonCollider2D>().SetPath(0, colliderPoints);
-    }
-
-    Vector2 GetOffset(Vector2 thisPosition, Vector2 nextPosition)
-    {
-        if (thisPosition.x != nextPosition.x && thisPosition.y != nextPosition.y)
-        {
-            Debug.Log("Pontos não ortogonais :" + thisPosition.x + " " + nextPosition.x
-                + " " + thisPosition.y + " " + nextPosition.y);
-            return Vector2.zero;
-        }
-
-        if (thisPosition.x > nextPosition.x) // bottom
-        {
-            return new Vector2(0, -bottomOffset);
-        }
-        if (thisPosition.x < nextPosition.x) // top
-        {
-            return new Vector2(0, topOffset);
-        }
-        if (thisPosition.y < nextPosition.y) // left side
-        {
-            return new Vector2(-sideOffset, 0);
-        }
-        if (thisPosition.y > nextPosition.y) // right side
-        {
-            return new Vector2(sideOffset, 0);
-        }
-
-        return Vector2.zero;
-    }*/
 }
