@@ -51,7 +51,7 @@ public class AuroraLife : MonoBehaviour
         // respanwTime tem que ser maior que o tempo da animaçao
         lives = 0;
         changeLifeText.Invoke(lives);
-        StartCoroutine(Respawn(new Vector2(-14.8f, -13f)));
+        StartCoroutine(Respawn(new Vector2(-14.8f, -12f)));
     }
 
     public IEnumerator Respawn(Vector2 respawnPosition)
