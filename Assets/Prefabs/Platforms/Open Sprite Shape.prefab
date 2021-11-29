@@ -78,7 +78,7 @@ SpriteShapeRenderer:
   m_MaskInteraction: 0
   m_ShapeTexture: {fileID: 0}
   m_Sprites:
-  - {fileID: 21300000, guid: c58ca5aa4bcc8354b9fd864411067a86, type: 3}
+  - {fileID: 21300000, guid: bc2318191c7967f4dae6ca7b54980008, type: 3}
   - {fileID: 21300000, guid: 608e61deb05c54660bebf5a4dd2ee02d, type: 3}
   - {fileID: 21300000, guid: 608e61deb05c54660bebf5a4dd2ee02d, type: 3}
   - {fileID: 21300000, guid: 608e61deb05c54660bebf5a4dd2ee02d, type: 3}
@@ -88,8 +88,8 @@ SpriteShapeRenderer:
   - {fileID: 21300000, guid: 608e61deb05c54660bebf5a4dd2ee02d, type: 3}
   - {fileID: 21300000, guid: 608e61deb05c54660bebf5a4dd2ee02d, type: 3}
   m_LocalAABB:
-    m_Center: {x: 2.4054363, y: 1.3648865, z: 0}
-    m_Extent: {x: 1.6488798, y: 0.5022233, z: 0}
+    m_Center: {x: -4.684696, y: 0.44108224, z: 0}
+    m_Extent: {x: 10.33953, y: 2.8583555, z: 0}
 --- !u!114 &4965299425704118525
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -154,7 +154,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 2.4054363, y: 1.3648865}
+  m_Offset: {x: 2.501681, y: 0.80880463}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -165,5 +165,5 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 3.2977595, y: 1.0044466}
+  m_Size: {x: 4.987393, y: 1.6318209}
   m_EdgeRadius: 0
