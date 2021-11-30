@@ -44,19 +44,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   collectables: []
-  loreStrings:
-  - Teste
-  - Teste2
-  - Teste3
-  - Teste4
-  - Teste5
-  - Teste6
-  - Teste7
-  - Teste8
-  - Teste9
-  - Teste10
-  - Teste11
-  bookAnimator: {fileID: 0}
   loreGameObject: {fileID: 0}
   minimapGameObject: {fileID: 0}
   grimoireCanvas: {fileID: 0}
