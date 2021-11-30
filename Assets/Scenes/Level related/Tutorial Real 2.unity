@@ -123,17 +123,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!114 &144156051 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1619887338, guid: eea17b2eaf18f9f429f52d6eb21b9974, type: 3}
-  m_PrefabInstance: {fileID: 298486723}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &163550672
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -741,10 +730,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Grimoire Canvas
       objectReference: {fileID: 0}
-    - target: {fileID: 8087688019447463590, guid: eea17b2eaf18f9f429f52d6eb21b9974, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: eea17b2eaf18f9f429f52d6eb21b9974, type: 3}
 --- !u!1001 &346372460
@@ -819,14 +804,6 @@ PrefabInstance:
       propertyPath: loreGameObject
       value: 
       objectReference: {fileID: 870118717}
-    - target: {fileID: 2296698536188514868, guid: 7d800c2f9c4d97840b40bebc7ffc3007, type: 3}
-      propertyPath: pageLeftButton
-      value: 
-      objectReference: {fileID: 1731406291}
-    - target: {fileID: 2296698536188514868, guid: 7d800c2f9c4d97840b40bebc7ffc3007, type: 3}
-      propertyPath: pageRightButton
-      value: 
-      objectReference: {fileID: 144156051}
     - target: {fileID: 2296698536188514868, guid: 7d800c2f9c4d97840b40bebc7ffc3007, type: 3}
       propertyPath: minimapGameObject
       value: 
@@ -2083,17 +2060,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1731406291 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1513269429, guid: eea17b2eaf18f9f429f52d6eb21b9974, type: 3}
-  m_PrefabInstance: {fileID: 298486723}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1749960318 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8087688019447463590, guid: eea17b2eaf18f9f429f52d6eb21b9974, type: 3}

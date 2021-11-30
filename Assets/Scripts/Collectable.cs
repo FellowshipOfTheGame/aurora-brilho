@@ -1,25 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
+using System;
 using UnityEngine;
 
 public class Collectable : MonoBehaviour
 {
-    private Grimoire grimoire;
-
-    private void Awake()
-    {
-        grimoire = FindObjectOfType<Grimoire>(true);
-    }
+    public event Action<Collectable> OnPickup;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
         {
-            grimoire.collectablesCount++;
-
-            uint quantity = grimoire.collectablesCount;
-            grimoire.displayNewLore(quantity - 1, quantity);
-            Destroy(gameObject);
+            OnPickup?.Invoke(this);
+            gameObject.SetActive(false);
         }
     }
 }
