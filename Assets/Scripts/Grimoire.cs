@@ -3,28 +3,47 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System;
 
 public class Grimoire : MonoBehaviour
 {
-    //public List<Collectable> collectables = new List<Collectable>();
-    public uint collectablesCount = 0;
-    public string[] loreStrings = new string[] { "Teste", "Teste2", "Teste3", "Teste4", "Teste5", "Teste6", "Teste7", "Teste8", "Teste9", "Teste10", "Teste11" };
+    public List<Collectable> collectables = new List<Collectable>();
+    //public string[] loreStrings = new string[] { "Teste", "Teste2", "Teste3", "Teste4", "Teste5", "Teste6", "Teste7", "Teste8", "Teste9", "Teste10", "Teste11" };
 
     // [SerializeField] private Animator bookAnimator = null;
     [SerializeField] private GameObject loreGameObject;
     [SerializeField] private GameObject minimapGameObject;
     [SerializeField] private GameObject grimoireCanvas;
-    [SerializeField] private Button pageLeftButton;
-    [SerializeField] private Button pageRightButton;
+    //[SerializeField] private Button pageLeftButton;
+    //[SerializeField] private Button pageRightButton;
 
-    private TMP_Text loreText;
+    private TMP_Text collectablesCountText;
 
-    private uint currentPage = 1;
-    private const int textPerPage = 5;
+    //private uint currentPage = 1;
+    //private const int textPerPage = 5;
+    private Collectable[] collectablesArray;
 
     private void Awake()
     {
-       loreText = loreGameObject.GetComponentInChildren<TMP_Text>(true);
+        collectablesCountText = loreGameObject.GetComponentInChildren<TMP_Text>(true);
+    }
+
+    private void Start()
+    {
+        collectablesArray = FindObjectsOfType<Collectable>();
+
+        foreach (Collectable collectable in collectablesArray)
+        {
+            collectable.OnPickup += HandlePickup;
+        }
+    }
+
+    private void OnDestroy()
+    {
+        foreach (Collectable collectable in collectables)
+        {
+            collectable.OnPickup -= HandlePickup;
+        }
     }
 
     private void Update()
@@ -36,20 +55,32 @@ public class Grimoire : MonoBehaviour
         }
     }
 
+    private void HandlePickup(Collectable collectable)
+    {
+        collectables.Add(collectable);
+        UpdateCountText();
+    }
+
+    private void UpdateCountText()
+    {
+        collectablesCountText.text = collectables.Count.ToString() + "/" + collectablesArray.Length.ToString();
+    }
+    /*
     public void displayNewLore(uint inicio, uint fim)
     {
         for (uint i = inicio; i < fim; i++)
         {
-            loreText.text += loreStrings[i] + "\n";
+            collectablesCountText.text += loreStrings[i] + "\n";
         }
-    }
+    }*/
 
+    /*
     private void ChangePage(uint pageNumber, uint lorePerPage)
     {
-        loreText.text = "";
+        collectablesCountText.text = "";
         displayNewLore(lorePerPage * (pageNumber - 1), lorePerPage * pageNumber - 1);
-    }
-
+    }*/
+    /*
     public void PageRight()
     {
         if (collectablesCount > currentPage * textPerPage)
@@ -66,8 +97,8 @@ public class Grimoire : MonoBehaviour
                 pageRightButton.interactable = true;
             }
         }
-    }
-
+    }*/
+    /*
     public void PageLeft()
     {
         if (currentPage > 1)
@@ -84,7 +115,7 @@ public class Grimoire : MonoBehaviour
                 pageLeftButton.interactable = true;
             }
         }
-    }
+    }*/
 
     private void OnEnable()
     {
