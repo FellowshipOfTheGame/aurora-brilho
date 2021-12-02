@@ -45,6 +45,7 @@ public class AuroraMovement : MonoBehaviour
     float jumpInputTiming;
     bool jumping, jumpCutEarly;
     bool facingRight = true;
+    bool canMove = true;
 
     [Header("Cached components")]
     [SerializeField] Animator animator;
