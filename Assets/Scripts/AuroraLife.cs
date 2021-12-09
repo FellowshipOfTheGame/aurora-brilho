@@ -13,6 +13,7 @@ public class AuroraLife : MonoBehaviour
     private LifeUI lifeUI;
     private float respawnTime = 2f;
     private UnityAction<uint> changeLifeText;
+    private LifeItem[] lifesArray;
 
     void Start()
     {
@@ -20,6 +21,13 @@ public class AuroraLife : MonoBehaviour
         lifeUI = FindObjectOfType<LifeUI>();
         changeLifeText = lifeUI.changeText;
         changeLifeText.Invoke(lives);
+
+        lifesArray = FindObjectsOfType<LifeItem>();
+
+        foreach (LifeItem lifeItem in lifesArray)
+        {
+            lifeItem.OnPickup += PickupLive;
+        }
     }
 
     private void Update()
@@ -41,6 +49,18 @@ public class AuroraLife : MonoBehaviour
         {
             Death();
         }
+    }
+
+    private bool PickupLive()
+    {
+        if (lives < 3)
+        {
+            lives++;
+            changeLifeText.Invoke(lives);
+            return true;
+        }
+
+        return false;
     }
 
     public void Death()
