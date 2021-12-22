@@ -7,7 +7,7 @@ public class AuroraLife : MonoBehaviour
 {
     public uint lives = 3;
     public bool canSufferDamage = true;
-    private float invulnerabilityTime = 3f;
+    private float invulnerabilityTime = 0f;
     private float time = 0;
     private Rigidbody2D auroraRigidbody2D;
     private LifeUI lifeUI;
@@ -88,7 +88,8 @@ public class AuroraLife : MonoBehaviour
         {
             lives--;
             canSufferDamage = false;
-            auroraRigidbody2D.AddForce(directionForce, ForceMode2D.Impulse);
+            //auroraRigidbody2D.AddForce(directionForce, ForceMode2D.Impulse);
+            auroraRigidbody2D.AddForce(directionForce * 150f, ForceMode2D.Impulse);
             changeLifeText.Invoke(lives);
         }
     }

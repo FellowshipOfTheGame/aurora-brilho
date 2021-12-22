@@ -16,11 +16,11 @@ public class Spike : MonoBehaviour
         if (collision.collider.CompareTag("Player"))
         {
             //auroraLife.TakeDamage(collision.relativeVelocity);
-            auroraLife.TakeDamage(-collision.rigidbody.velocity);
+            auroraLife.TakeDamage(-collision.GetContact(0).normal);
         }
     }
 
-    private void OnCollisionStay2D(Collision2D collision)
+    /*private void OnCollisionStay2D(Collision2D collision)
     {
         if (collision.collider.CompareTag("Player"))
         {
@@ -33,5 +33,5 @@ public class Spike : MonoBehaviour
         {
             auroraLife.TakeDamage(collision.rigidbody.velocity);
         }
-    }
+    }*/
 }
