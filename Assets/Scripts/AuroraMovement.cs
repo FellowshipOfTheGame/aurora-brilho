@@ -16,6 +16,7 @@ public class AuroraMovement : MonoBehaviour
     [Header("Vertical Movement")]
     [SerializeField] float fallMultiplier;
     [SerializeField] float lowJumpMultiplier;
+    [SerializeField] float topVerticalSpeed;
     float gravityScale;
     float gravity;
 
@@ -91,6 +92,7 @@ public class AuroraMovement : MonoBehaviour
             RecalculateVariables();
         }
     }
+
     private void FixedUpdate()
     {
         CheckGrounded(); // updates grounded variable
