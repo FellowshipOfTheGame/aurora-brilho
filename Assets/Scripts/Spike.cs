@@ -16,7 +16,7 @@ public class Spike : MonoBehaviour
         if (collision.collider.CompareTag("Player"))
         {
             //auroraLife.TakeDamage(collision.relativeVelocity);
-            auroraLife.TakeDamage(collision.rigidbody.velocity);
+            auroraLife.TakeDamage(-collision.rigidbody.velocity);
         }
     }
 
