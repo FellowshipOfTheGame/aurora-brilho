@@ -14,13 +14,14 @@ public class AuroraLife : MonoBehaviour
     private float respawnTime = 2f;
     private UnityAction<uint> changeLifeText;
     private LifeItem[] lifesArray;
+    public float knockbackForce;
 
     void Start()
     {
         auroraRigidbody2D = GetComponent<Rigidbody2D>();
         lifeUI = FindObjectOfType<LifeUI>();
-        changeLifeText = lifeUI.changeText;
-        changeLifeText.Invoke(lives);
+        if (lifeUI) changeLifeText = lifeUI.changeText;
+        changeLifeText?.Invoke(lives);
 
         lifesArray = FindObjectsOfType<LifeItem>();
 
@@ -56,7 +57,7 @@ public class AuroraLife : MonoBehaviour
         if (lives < 3)
         {
             lives++;
-            changeLifeText.Invoke(lives);
+            changeLifeText?.Invoke(lives);
             return true;
         }
 
@@ -70,7 +71,8 @@ public class AuroraLife : MonoBehaviour
         // mover ele pro checkpoint
         // respanwTime tem que ser maior que o tempo da animaçao
         lives = 0;
-        changeLifeText.Invoke(lives);
+        changeLifeText?.Invoke(lives);
+        auroraRigidbody2D.simulated = false;
         StartCoroutine(Respawn(new Vector2(-14.8f, -12f)));
     }
 
@@ -78,8 +80,9 @@ public class AuroraLife : MonoBehaviour
     {
         yield return new WaitForSeconds(respawnTime);
         transform.position = respawnPosition;
+        auroraRigidbody2D.simulated = true;
         lives = 3;
-        changeLifeText.Invoke(lives);
+        changeLifeText?.Invoke(lives);
     }
 
     public void TakeDamage(Vector2 directionForce)
@@ -89,8 +92,8 @@ public class AuroraLife : MonoBehaviour
             lives--;
             canSufferDamage = false;
             //auroraRigidbody2D.AddForce(directionForce, ForceMode2D.Impulse);
-            auroraRigidbody2D.AddForce(directionForce * 150f, ForceMode2D.Impulse);
-            changeLifeText.Invoke(lives);
+            auroraRigidbody2D.AddForce(directionForce * knockbackForce, ForceMode2D.Impulse);
+            changeLifeText?.Invoke(lives);
         }
     }
 }

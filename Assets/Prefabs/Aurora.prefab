@@ -143,6 +143,7 @@ MonoBehaviour:
   airControl: 0.75
   fallMultiplier: 1.2
   lowJumpMultiplier: 2.5
+  topFallingSpeed: 35
   jumpHeight: 4.3
   timeToApex: 0.37
   wallSilidingTopSpeed: 2.5
@@ -168,6 +169,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lives: 3
   canSufferDamage: 1
+  knockbackForce: 25
 --- !u!95 &8840698995021135381
 Animator:
   serializedVersion: 3

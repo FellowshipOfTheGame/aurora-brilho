@@ -16,7 +16,7 @@ public class AuroraMovement : MonoBehaviour
     [Header("Vertical Movement")]
     [SerializeField] float fallMultiplier;
     [SerializeField] float lowJumpMultiplier;
-    [SerializeField] float topVerticalSpeed;
+    [SerializeField] float topFallingSpeed;
     float gravityScale;
     float gravity;
 
@@ -43,7 +43,6 @@ public class AuroraMovement : MonoBehaviour
     bool walledLeft, walledRight;
     bool wallSliding;
     float wallInputTiming;
-    float jumpInputTiming;
     bool jumping, jumpCutEarly;
     bool facingRight = true;
     bool canMove = true;
@@ -53,11 +52,10 @@ public class AuroraMovement : MonoBehaviour
     [SerializeField] Transform modelTransform; 
     Rigidbody2D rb;
     BoxCollider2D boxCollider;
-    SpriteRenderer spriteRenderer;
 
     // Input variables
     int xAxisInput;
-    bool jumpKeyPressed;
+    float jumpKeyPressedInTime = -1f;
     bool jumpKeyReleased;
 
     [Header("Debug")]
@@ -68,17 +66,8 @@ public class AuroraMovement : MonoBehaviour
         // Get components
         rb = GetComponent<Rigidbody2D>();
         boxCollider = GetComponent<BoxCollider2D>();
-        // animator = GetComponent<Animator>();
-        spriteRenderer = GetComponent<SpriteRenderer>();
 
-        // Initialize jump related variables
-        gravity = -2 * jumpHeight / (timeToApex * timeToApex);
-        gravityScale = gravity / Physics2D.gravity.y;
-        rb.gravityScale = gravityScale;
-
-        // Initialize horizontal movement variables
-        acceleration = topSpeed / accelerationTime;
-        deceleration = topSpeed / decelerationTime;
+        InitializeVariables();
     }
 
     // Update is called once per frame
@@ -89,50 +78,56 @@ public class AuroraMovement : MonoBehaviour
 
         if (recalculateVariables)
         {
-            RecalculateVariables();
+            InitializeVariables();
         }
+
+        if (Input.GetKeyDown(KeyCode.P))
+            PauseMovement(canMove);
     }
 
     private void FixedUpdate()
     {
-        CheckGrounded(); // updates grounded variable
-        CheckWalled(); // updates walled variables
+        if (canMove)
+        {
+            CheckGrounded(); // updates grounded variable
+            CheckWalled(); // updates walled variables
 
-        if (grounded)
-        {
-            coyoteTimePassed = coyoteTime;
-        }
-        else
-        {
-            coyoteTimePassed -= Time.deltaTime;
-        }
+            // Wall slide
+            if ((walledRight || walledLeft) && !grounded)
+            {
+                wallSliding = true;
+                WallSlide();
+            }
+            else
+            {
+                wallSliding = false;
+                wallInputTiming = 0f;
+            }
 
-        if ((walledRight || walledLeft) && !grounded)
-        {
-            wallSliding = true;
-            WallSlide();
-        }
-        else
-        {
-            wallSliding = false;
-            wallInputTiming = 0f;
-        }
+            // Coyote time
+            if (grounded)
+            {
+                coyoteTimePassed = coyoteTime;
+            }
+            else
+            {
+                coyoteTimePassed -= Time.deltaTime;
+            }
 
-        if (grounded || wallSliding)
-        {
-            jumpsAvailable = jumpsQuantity; // reset jumps
-            jumping = false;
-            jumpCutEarly = false;
-        }
-        else if (jumpsAvailable == jumpsQuantity && coyoteTimePassed < 0)
-            jumpsAvailable--; // lose one jump if not walled and if not grounded after coyoteTime has passed
+            if (grounded || wallSliding)
+            {
+                jumpsAvailable = jumpsQuantity; // reset jumps
+                jumping = false;
+                jumpCutEarly = false;
+            }
+            else if (jumpsAvailable == jumpsQuantity && coyoteTimePassed < 0)
+                jumpsAvailable--; // lose one jump if not walled and if not grounded after coyoteTime has passed
 
-        // It takes care of horizontal movement on ground and on air
-        HorizontalMovement();
+            // It takes care of horizontal movement on ground and on air
+            if (!wallSliding)
+                HorizontalMovement();
 
-        if (jumpKeyPressed)
-        {
-            if (jumpsAvailable > 0)
+            if (jumpKeyPressedInTime >= Time.time && jumpsAvailable > 0)
             {
                 Jump();
                 jumpsAvailable--;
@@ -144,41 +139,54 @@ public class AuroraMovement : MonoBehaviour
                 jumping = true;
 
                 // reset variables
-                jumpKeyPressed = false;
-                jumpInputTiming = jumpToleranceInput;
+                jumpKeyPressedInTime = -1f;
                 jumpCutEarly = false;
+            }
+
+            if (jumping && jumpKeyReleased)
+            {
+                jumpCutEarly = true;
+            }
+            jumpKeyReleased = false;
+
+            if (rb.velocity.y >= 0)
+            {
+                if (jumpCutEarly)
+                    rb.gravityScale = gravityScale * lowJumpMultiplier;
+                else
+                    rb.gravityScale = gravityScale;
             }
             else
             {
-                jumpInputTiming -= Time.deltaTime;
-                if (jumpInputTiming < 0)
-                {
-                    jumpKeyPressed = false;
-                    jumpInputTiming = jumpToleranceInput;
-                }
+                rb.gravityScale = gravityScale * fallMultiplier;
+                if (rb.velocity.y < -topFallingSpeed)
+                    rb.velocity = new Vector2(rb.velocity.x, -topFallingSpeed);
             }
-        }
 
-        if (jumping && jumpKeyReleased)
-        {
-            jumpCutEarly = true;
+            SetAnimationParameters();
+            FlipSprite();
         }
-        jumpKeyReleased = false;
+    }
 
-        if (rb.velocity.y >= 0)
+    void PauseMovement(bool pauseIt)
+    {
+        if (pauseIt)
         {
-            if (jumpCutEarly)
-                rb.gravityScale = gravityScale * lowJumpMultiplier;
-            else
-                rb.gravityScale = gravityScale;
+            rb.simulated = false;
+
+            wallSliding = false;
+            wallInputTiming = 0f;
+
+            jumping = false;
+            jumpsAvailable = 0;
+            jumpCutEarly = false;
         }
         else
         {
-            rb.gravityScale = gravityScale * fallMultiplier;
+            rb.simulated = true;
         }
 
-        SetAnimationParameters();
-        FlipSprite();
+        canMove = !pauseIt;
     }
 
     private void FlipSprite()
@@ -195,8 +203,6 @@ public class AuroraMovement : MonoBehaviour
         {
             facingRight = false;
         }
-
-        //spriteRenderer.flipX = !facingRight;
 
         if (facingRight)
             modelTransform.rotation = Quaternion.Euler(0, 0, 0);
@@ -256,17 +262,15 @@ public class AuroraMovement : MonoBehaviour
     {
         bool inputInDirectionOfMovement = (xAxisInput == 1 && rb.velocity.x >= 0) || (xAxisInput == -1 && rb.velocity.x <= 0);
         
-        if (!wallSliding)
+        if (inputInDirectionOfMovement && Mathf.Abs(rb.velocity.x) <= topSpeed)
         {
-            if (inputInDirectionOfMovement && Mathf.Abs(rb.velocity.x) <= topSpeed)
-            {
-                Accelerate();
-            }
-            else
-            {
-                Decelerate();
-            }
+            Accelerate();
         }
+        else
+        {
+            Decelerate();
+        }
+        
     }
 
     private void Accelerate()
@@ -376,7 +380,7 @@ public class AuroraMovement : MonoBehaviour
     {
         if (Input.GetButtonDown("Jump"))
         {
-            jumpKeyPressed = true;
+            jumpKeyPressedInTime = Time.time + jumpToleranceInput;
         }
         if (Input.GetButtonUp("Jump"))
         {
@@ -386,17 +390,14 @@ public class AuroraMovement : MonoBehaviour
 
     #endregion
 
-    void RecalculateVariables()
+    void InitializeVariables()
     {
+        // Initialize jump related variables
         gravity = -2 * jumpHeight / (timeToApex * timeToApex);
         gravityScale = gravity / Physics2D.gravity.y;
 
+        // Initialize horizontal movement variables
         acceleration = topSpeed / accelerationTime;
         deceleration = topSpeed / decelerationTime;
-    }
-
-    private void OnTriggerStay2D(Collider2D collision)
-    {
-        Debug.Log(collision);
     }
 }

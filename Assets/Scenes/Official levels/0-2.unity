@@ -300,6 +300,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1866252056}
     m_Modifications:
+    - target: {fileID: 2111290081795255522, guid: d37ccbb13269ed54086e44c322f571a1, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 82d7c74bb401eff4da40a0bea3e3a36d, type: 3}
     - target: {fileID: 4801308466377834288, guid: d37ccbb13269ed54086e44c322f571a1, type: 3}
       propertyPath: m_Name
       value: Collectable (2)
@@ -1524,11 +1528,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1501786361752514585, guid: ca677c886fedcdd43998906ed896719d, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -22.2
+      value: -20.3
       objectReference: {fileID: 0}
     - target: {fileID: 1501786361752514585, guid: ca677c886fedcdd43998906ed896719d, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -10.3
+      value: -9.8
       objectReference: {fileID: 0}
     - target: {fileID: 1501786361752514590, guid: ca677c886fedcdd43998906ed896719d, type: 3}
       propertyPath: m_Follow
@@ -2265,11 +2269,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4627108798632549633, guid: 536c2ee885d15a04a8e3138f015b80fb, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -22.2
+      value: -20.3
       objectReference: {fileID: 0}
     - target: {fileID: 4627108798632549633, guid: 536c2ee885d15a04a8e3138f015b80fb, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -10.3
+      value: -9.8
       objectReference: {fileID: 0}
     - target: {fileID: 4627108798632549633, guid: 536c2ee885d15a04a8e3138f015b80fb, type: 3}
       propertyPath: m_LocalPosition.z
@@ -2306,6 +2310,10 @@ PrefabInstance:
     - target: {fileID: 4627108798632549635, guid: 536c2ee885d15a04a8e3138f015b80fb, type: 3}
       propertyPath: m_Name
       value: Aurora
+      objectReference: {fileID: 0}
+    - target: {fileID: 8249057167838033875, guid: 536c2ee885d15a04a8e3138f015b80fb, type: 3}
+      propertyPath: knockbackForce
+      value: 40
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 536c2ee885d15a04a8e3138f015b80fb, type: 3}
