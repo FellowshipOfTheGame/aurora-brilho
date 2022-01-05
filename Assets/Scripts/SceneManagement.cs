@@ -42,7 +42,7 @@ public class SceneManagement : MonoBehaviour
 
     public void LoadTutorial()
     {
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene("0-1");
     }
 
     public void Exit()
