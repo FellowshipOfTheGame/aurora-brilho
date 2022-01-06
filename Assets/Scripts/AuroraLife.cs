@@ -7,20 +7,23 @@ public class AuroraLife : MonoBehaviour
 {
     public uint lives = 3;
     public bool canSufferDamage = true;
-    private float invulnerabilityTime = 3f;
+    private float invulnerabilityTime = 0f;
     private float time = 0;
     private Rigidbody2D auroraRigidbody2D;
+    private AuroraMovement auroraMovement;
     private LifeUI lifeUI;
     private float respawnTime = 2f;
     private UnityAction<uint> changeLifeText;
     private LifeItem[] lifesArray;
+    public float knockbackForce;
 
     void Start()
     {
         auroraRigidbody2D = GetComponent<Rigidbody2D>();
+        auroraMovement = GetComponent<AuroraMovement>();
         lifeUI = FindObjectOfType<LifeUI>();
-        changeLifeText = lifeUI.changeText;
-        changeLifeText.Invoke(lives);
+        if (lifeUI) changeLifeText = lifeUI.changeText;
+        changeLifeText?.Invoke(lives);
 
         lifesArray = FindObjectsOfType<LifeItem>();
 
@@ -56,7 +59,7 @@ public class AuroraLife : MonoBehaviour
         if (lives < 3)
         {
             lives++;
-            changeLifeText.Invoke(lives);
+            changeLifeText?.Invoke(lives);
             return true;
         }
 
@@ -70,16 +73,22 @@ public class AuroraLife : MonoBehaviour
         // mover ele pro checkpoint
         // respanwTime tem que ser maior que o tempo da animaçao
         lives = 0;
-        changeLifeText.Invoke(lives);
+        changeLifeText?.Invoke(lives);
+        auroraMovement.PauseMovement(true);
+        canSufferDamage = false;
         StartCoroutine(Respawn(new Vector2(-14.8f, -12f)));
     }
 
     public IEnumerator Respawn(Vector2 respawnPosition)
     {
+        auroraRigidbody2D.isKinematic = true;
         yield return new WaitForSeconds(respawnTime);
         transform.position = respawnPosition;
+        auroraRigidbody2D.isKinematic = false;
+        auroraMovement.PauseMovement(false);
+        canSufferDamage = true;
         lives = 3;
-        changeLifeText.Invoke(lives);
+        changeLifeText?.Invoke(lives);
     }
 
     public void TakeDamage(Vector2 directionForce)
@@ -88,8 +97,9 @@ public class AuroraLife : MonoBehaviour
         {
             lives--;
             canSufferDamage = false;
-            auroraRigidbody2D.AddForce(directionForce, ForceMode2D.Impulse);
-            changeLifeText.Invoke(lives);
+            //auroraRigidbody2D.AddForce(directionForce, ForceMode2D.Impulse);
+            auroraRigidbody2D.AddForce(directionForce * knockbackForce, ForceMode2D.Impulse);
+            changeLifeText?.Invoke(lives);
         }
     }
 }
