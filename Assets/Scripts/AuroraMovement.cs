@@ -168,12 +168,11 @@ public class AuroraMovement : MonoBehaviour
         }
     }
 
-    void PauseMovement(bool pauseIt)
+    public void PauseMovement(bool pauseIt)
     {
         if (pauseIt)
         {
             rb.simulated = false;
-
             wallSliding = false;
             wallInputTiming = 0f;
 
@@ -183,6 +182,7 @@ public class AuroraMovement : MonoBehaviour
         }
         else
         {
+            rb.velocity = Vector2.zero;
             rb.simulated = true;
         }
 

@@ -10,6 +10,7 @@ public class AuroraLife : MonoBehaviour
     private float invulnerabilityTime = 0f;
     private float time = 0;
     private Rigidbody2D auroraRigidbody2D;
+    private AuroraMovement auroraMovement;
     private LifeUI lifeUI;
     private float respawnTime = 2f;
     private UnityAction<uint> changeLifeText;
@@ -19,6 +20,7 @@ public class AuroraLife : MonoBehaviour
     void Start()
     {
         auroraRigidbody2D = GetComponent<Rigidbody2D>();
+        auroraMovement = GetComponent<AuroraMovement>();
         lifeUI = FindObjectOfType<LifeUI>();
         if (lifeUI) changeLifeText = lifeUI.changeText;
         changeLifeText?.Invoke(lives);
@@ -72,15 +74,19 @@ public class AuroraLife : MonoBehaviour
         // respanwTime tem que ser maior que o tempo da animaçao
         lives = 0;
         changeLifeText?.Invoke(lives);
-        auroraRigidbody2D.simulated = false;
+        auroraMovement.PauseMovement(true);
+        canSufferDamage = false;
         StartCoroutine(Respawn(new Vector2(-14.8f, -12f)));
     }
 
     public IEnumerator Respawn(Vector2 respawnPosition)
     {
+        auroraRigidbody2D.isKinematic = true;
         yield return new WaitForSeconds(respawnTime);
         transform.position = respawnPosition;
-        auroraRigidbody2D.simulated = true;
+        auroraRigidbody2D.isKinematic = false;
+        auroraMovement.PauseMovement(false);
+        canSufferDamage = true;
         lives = 3;
         changeLifeText?.Invoke(lives);
     }
