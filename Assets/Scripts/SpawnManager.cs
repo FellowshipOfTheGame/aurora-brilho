@@ -15,6 +15,13 @@ public class SpawnManager : MonoBehaviour
 
     private void Start()
     {
+        Vector2 spawnPos = GetSpawnPosition();
+        // spawn aurora in spawnPos
+        auroraMovement.transform.position = spawnPos; // temporary solution
+    }
+
+    public Vector2 GetSpawnPosition()
+    {
         int spawnPosIndex = GameStateManager.instance.spawnIndex;
         Vector3 spawnPos;
         if (spawnPositions.Length <= spawnPosIndex)
@@ -27,7 +34,6 @@ public class SpawnManager : MonoBehaviour
             spawnPos = spawnPositions[spawnPosIndex];
         }
 
-        // spawn aurora in spawnPos
-        auroraMovement.transform.position = spawnPos; // temporary solution
+        return spawnPos;
     }
 }

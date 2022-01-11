@@ -5,12 +5,15 @@ using UnityEngine.SceneManagement;
 
 public class SceneManagement : MonoBehaviour
 {
-    #region Singleton
+    public static int index = 0;
 
-    public static SceneManagement instance;
+    [SerializeField] float transitionTime = 1f;
+
+    public static SceneManagement instance; // singleton
 
     private void Awake()
     {
+        #region Singleton
         if (instance == null)
         {
             instance = this;
@@ -20,29 +23,47 @@ public class SceneManagement : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        #endregion
     }
-    #endregion
 
-    public static int index = 0;
+    IEnumerator LoadLevel(int index)
+    {
+        Animator transition = GameObject.Find("/Level Loader/Crossfade").GetComponent<Animator>();
+        transition.SetTrigger("start");
+
+        yield return new WaitForSeconds(transitionTime);
+
+        SceneManager.LoadScene(index);
+    }
+
+    IEnumerator LoadLevel(string index)
+    {
+        Animator transition = GameObject.Find("/Level Loader/Crossfade").GetComponent<Animator>();
+        transition.SetTrigger("start");
+
+        yield return new WaitForSeconds(transitionTime);
+
+        SceneManager.LoadScene(index);
+    }
 
     public void LoadMenu()
     {
-        SceneManager.LoadScene(0);
+        StartCoroutine(LoadLevel(0));
     }
 
     public void LoadScene(int index)
     {
-        SceneManager.LoadScene(index);
+        StartCoroutine(LoadLevel(index));
     }
 
     public void LoadScene(string name)
     {
-        SceneManager.LoadScene(name);
+        StartCoroutine(LoadLevel(name));
     }
 
     public void LoadTutorial()
     {
-        SceneManager.LoadScene("0-1");
+        StartCoroutine(LoadLevel("0-1"));
     }
 
     public void Exit()
