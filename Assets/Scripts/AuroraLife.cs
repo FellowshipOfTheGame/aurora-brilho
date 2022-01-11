@@ -17,8 +17,16 @@ public class AuroraLife : MonoBehaviour
     private LifeItem[] lifesArray;
     public float knockbackForce;
 
+    private Animator crossfade;
+
+
+    bool respawning = false;
+    float respawnTimer;
+
     void Start()
     {
+        crossfade = GameObject.Find("/Level Loader/Crossfade").GetComponent<Animator>();
+
         auroraRigidbody2D = GetComponent<Rigidbody2D>();
         auroraMovement = GetComponent<AuroraMovement>();
         lifeUI = FindObjectOfType<LifeUI>();
@@ -52,6 +60,25 @@ public class AuroraLife : MonoBehaviour
         {
             Death();
         }
+
+        if (respawning)
+        {
+            respawnTimer += Time.deltaTime;
+            if (respawnTimer > respawnTime)
+            {
+                respawning = false;
+                canSufferDamage = true;
+                lives = 3;
+                changeLifeText?.Invoke(lives);
+                
+                auroraMovement.PauseMovement(false);
+
+                auroraRigidbody2D.position = FindObjectOfType<SpawnManager>().GetSpawnPosition();
+                auroraRigidbody2D.velocity = Vector2.zero;
+
+                crossfade.SetTrigger("end");
+            }
+        }
     }
 
     private bool PickupLive()
@@ -68,27 +95,21 @@ public class AuroraLife : MonoBehaviour
 
     public void Death()
     {
-        // animaçao de morte
-        // nao destruir o objeto
-        // mover ele pro checkpoint
-        // respanwTime tem que ser maior que o tempo da animaçao
-        lives = 0;
-        changeLifeText?.Invoke(lives);
-        auroraMovement.PauseMovement(true);
-        canSufferDamage = false;
-        StartCoroutine(Respawn(new Vector2(-14.8f, -12f)));
-    }
+        if (!respawning)
+        {
+            // animaçao de morte
+            // nao destruir o objeto
+            // mover ele pro checkpoint
+            // respanwTime tem que ser maior que o tempo da animaçao
+            lives = 0;
+            changeLifeText?.Invoke(lives);
+            auroraMovement.PauseMovement(true);
+            canSufferDamage = false;
+            respawning = true;
+            respawnTimer = 0f;
 
-    public IEnumerator Respawn(Vector2 respawnPosition)
-    {
-        auroraRigidbody2D.isKinematic = true;
-        yield return new WaitForSeconds(respawnTime);
-        transform.position = respawnPosition;
-        auroraRigidbody2D.isKinematic = false;
-        auroraMovement.PauseMovement(false);
-        canSufferDamage = true;
-        lives = 3;
-        changeLifeText?.Invoke(lives);
+            crossfade.SetTrigger("start");
+        }
     }
 
     public void TakeDamage(Vector2 directionForce)
