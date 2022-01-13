@@ -25,7 +25,7 @@ public class AuroraLife : MonoBehaviour
 
     void Start()
     {
-        crossfade = GameObject.Find("/Level Loader/Crossfade").GetComponent<Animator>();
+        crossfade = GameObject.Find("/Level Loader/Crossfade")?.GetComponent<Animator>();
 
         auroraRigidbody2D = GetComponent<Rigidbody2D>();
         auroraMovement = GetComponent<AuroraMovement>();
@@ -76,7 +76,7 @@ public class AuroraLife : MonoBehaviour
                 auroraRigidbody2D.position = FindObjectOfType<SpawnManager>().GetSpawnPosition();
                 auroraRigidbody2D.velocity = Vector2.zero;
 
-                crossfade.SetTrigger("end");
+                crossfade?.SetTrigger("end");
             }
         }
     }
@@ -108,7 +108,7 @@ public class AuroraLife : MonoBehaviour
             respawning = true;
             respawnTimer = 0f;
 
-            crossfade.SetTrigger("start");
+            crossfade?.SetTrigger("start");
         }
     }
 
