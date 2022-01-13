@@ -132,8 +132,7 @@ public class AuroraMovement : MonoBehaviour
                 Jump();
                 jumpsAvailable--;
 
-                // temporary workaround
-                if (jumping)
+                if (!grounded && !wallSliding) // for animation purpose only
                     animator.SetTrigger("doubleJump");
 
                 jumping = true;
@@ -149,6 +148,8 @@ public class AuroraMovement : MonoBehaviour
             }
             jumpKeyReleased = false;
 
+
+            // Handles vertical velocit and acceleration
             if (rb.velocity.y >= 0)
             {
                 if (jumpCutEarly)
@@ -159,7 +160,7 @@ public class AuroraMovement : MonoBehaviour
             else
             {
                 rb.gravityScale = gravityScale * fallMultiplier;
-                if (rb.velocity.y < -topFallingSpeed)
+                if (rb.velocity.y < -topFallingSpeed) // limit falling speed
                     rb.velocity = new Vector2(rb.velocity.x, -topFallingSpeed);
             }
 
@@ -170,14 +171,14 @@ public class AuroraMovement : MonoBehaviour
 
     public void Bounce(Vector2 direction, float force)
     {
+        rb.velocity = Vector2.zero;
         rb.AddForce(direction.normalized * force, ForceMode2D.Impulse);
         jumpsAvailable = jumpsQuantity - 1;
 
-        // temporary workaround
-        if (jumping)
+        if (!grounded && !wallSliding) // for animation purpose only
             animator.SetTrigger("doubleJump");
 
-        jumping = true;
+        jumping = false;
 
         // reset variables
         jumpKeyPressedInTime = -1f;

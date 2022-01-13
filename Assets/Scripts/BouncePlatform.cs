@@ -5,7 +5,7 @@ using UnityEngine;
 public class BouncePlatform : MonoBehaviour
 {
     private AuroraMovement auroraMovement;
-    [SerializeField] private float bounceForce = 10f;
+    [SerializeField] private float bounceForce;
 
     private void Start()
     {
@@ -16,7 +16,7 @@ public class BouncePlatform : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            //auroraMovement.AddForce(bounceForce);
+            auroraMovement.Bounce(transform.up, bounceForce);
         }
     }
 }
