@@ -168,6 +168,22 @@ public class AuroraMovement : MonoBehaviour
         }
     }
 
+    public void Bounce(Vector2 direction, float force)
+    {
+        rb.AddForce(direction.normalized * force, ForceMode2D.Impulse);
+        jumpsAvailable = jumpsQuantity - 1;
+
+        // temporary workaround
+        if (jumping)
+            animator.SetTrigger("doubleJump");
+
+        jumping = true;
+
+        // reset variables
+        jumpKeyPressedInTime = -1f;
+        jumpCutEarly = false;
+    }
+
     public void PauseMovement(bool pauseIt)
     {
         if (pauseIt)
