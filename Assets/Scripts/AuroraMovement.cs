@@ -53,6 +53,7 @@ public class AuroraMovement : MonoBehaviour
     bool canMove = true;
     bool knockedBack = false;
     float knockbackTimer = 0f;
+    bool stopInput = false;
 
     [Header("Cached components")]
     [SerializeField] Animator animator;
@@ -80,8 +81,11 @@ public class AuroraMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        GetHorizontalInput();
-        GetJumpInput();
+        if (!stopInput)
+        {
+            GetHorizontalInput();
+            GetJumpInput();
+        }
 
         if (recalculateVariables)
         {
@@ -208,6 +212,22 @@ public class AuroraMovement : MonoBehaviour
         // reset variables
         jumpKeyPressedInTime = -1f;
         jumpCutEarly = false;
+    }
+
+    public void StopInput(bool stopIt)
+    {
+        if (stopIt)
+        {
+            xAxisInput = 0;
+            jumpKeyPressedInTime = -1f;
+            jumpKeyReleased = false;
+
+            stopInput = true;
+        }
+        else
+        {
+            stopInput = false;
+        }
     }
 
     public void PauseMovement(bool pauseIt)
