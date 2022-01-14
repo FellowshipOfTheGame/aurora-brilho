@@ -152,6 +152,8 @@ MonoBehaviour:
   groundMask:
     serializedVersion: 2
     m_Bits: 128
+  knockbackAngle: 65
+  knockbackDuration: 0.5
   animator: {fileID: 8840698995021135381}
   modelTransform: {fileID: 8671782126503323706}
   recalculateVariables: 0
@@ -170,6 +172,7 @@ MonoBehaviour:
   lives: 3
   canSufferDamage: 1
   knockbackForce: 25
+  auroraAnimator: {fileID: 8840698995021135381}
 --- !u!95 &8840698995021135381
 Animator:
   serializedVersion: 3

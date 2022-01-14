@@ -36,6 +36,11 @@ public class AuroraMovement : MonoBehaviour
     [SerializeField] LayerMask groundMask;
     const float groundCheckWidth = 0.015f; // tested value -> 0.015f
 
+    [Header("Knockback")]
+    [SerializeField] float knockbackAngle;
+    [SerializeField] float knockbackDuration;
+
+
     // Current state of the game
     bool grounded;
     float coyoteTimePassed;
@@ -46,6 +51,8 @@ public class AuroraMovement : MonoBehaviour
     bool jumping, jumpCutEarly;
     bool facingRight = true;
     bool canMove = true;
+    bool knockedBack = false;
+    float knockbackTimer = 0f;
 
     [Header("Cached components")]
     [SerializeField] Animator animator;
@@ -81,13 +88,19 @@ public class AuroraMovement : MonoBehaviour
             InitializeVariables();
         }
 
-        if (Input.GetKeyDown(KeyCode.P))
-            PauseMovement(canMove);
     }
 
     private void FixedUpdate()
     {
-        if (canMove)
+        if (knockedBack)
+        {
+            knockbackTimer += Time.deltaTime;
+            if (knockbackTimer >= knockbackDuration)
+            {
+                knockedBack = false;
+            }
+        }
+        else if (canMove)
         {
             CheckGrounded(); // updates grounded variable
             CheckWalled(); // updates walled variables
@@ -167,6 +180,18 @@ public class AuroraMovement : MonoBehaviour
             SetAnimationParameters();
             FlipSprite();
         }
+    }
+
+    public void Knockback(float force)
+    {
+        float direction = facingRight ? -1 : 1;
+        rb.velocity = new Vector2(direction * force * Mathf.Cos(knockbackAngle * Mathf.Deg2Rad), force * Mathf.Sin(knockbackAngle * Mathf.Deg2Rad));
+
+        animator.SetFloat("m_knockback", 1 / knockbackDuration);
+        animator.SetTrigger("knockback");
+
+        knockedBack = true;
+        knockbackTimer = 0f;
     }
 
     public void Bounce(Vector2 direction, float force)
