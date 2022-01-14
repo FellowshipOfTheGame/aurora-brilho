@@ -99,7 +99,7 @@ public class AuroraLife : MonoBehaviour
             auroraAnimator.SetTrigger("die");
 
             GameStateManager.instance.spawnInCheckpoint = true;
-            SceneManagement.instance.LoadScene(GameStateManager.instance.checkpointSceneIndex);
+            FindObjectOfType<SceneManagement>().LoadScene(GameStateManager.instance.checkpointSceneIndex);
 
             respawning = true;
         }
