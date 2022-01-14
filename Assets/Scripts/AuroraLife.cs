@@ -13,18 +13,15 @@ public class AuroraLife : MonoBehaviour
     private Rigidbody2D auroraRigidbody2D;
     private AuroraMovement auroraMovement;
     private LifeUI lifeUI;
-    private float respawnTime = 2f;
     private UnityAction<int> changeLifeText;
     private LifeItem[] lifesArray;
     public float knockbackForce;
 
-    private Animator crossfade;
 
     [Header("Cached components")]
     [SerializeField] Animator auroraAnimator;
 
     bool respawning = false;
-    float respawnTimer;
 
     void Start()
     {
@@ -37,7 +34,6 @@ public class AuroraLife : MonoBehaviour
             currentLives = GameStateManager.instance.auroraLives;
         }
 
-        crossfade = GameObject.Find("/Level Loader/Crossfade")?.GetComponent<Animator>();
 
         auroraRigidbody2D = GetComponent<Rigidbody2D>();
         auroraMovement = GetComponent<AuroraMovement>();
@@ -72,27 +68,6 @@ public class AuroraLife : MonoBehaviour
         {
             Death();
         }
-
-        /*if (respawning)
-        {
-            respawnTimer += Time.deltaTime;
-            if (respawnTimer > respawnTime)
-            {
-                respawning = false;
-                canSufferDamage = true;
-                lives = 3;
-                changeLifeText?.Invoke(lives);
-                
-                auroraMovement.PauseMovement(false);
-
-                auroraRigidbody2D.position = FindObjectOfType<SpawnManager>().GetSpawnPosition();
-                auroraRigidbody2D.velocity = Vector2.zero;
-
-                //crossfade?.SetTrigger("end");
-
-                //auroraAnimator.SetTrigger("revive");
-            }
-        }*/
     }
 
     private bool PickupLive()
@@ -117,10 +92,6 @@ public class AuroraLife : MonoBehaviour
     {
         if (!respawning)
         {
-            // animaçao de morte
-            // nao destruir o objeto
-            // mover ele pro checkpoint
-            // respanwTime tem que ser maior que o tempo da animaçao
             currentLives = 0;
             changeLifeText?.Invoke(currentLives);
             auroraMovement.PauseMovement(true);
@@ -131,9 +102,6 @@ public class AuroraLife : MonoBehaviour
             SceneManagement.instance.LoadScene(GameStateManager.instance.checkpointSceneIndex);
 
             respawning = true;
-            //respawnTimer = 0f;
-
-            //crossfade?.SetTrigger("start");
         }
     }
 
