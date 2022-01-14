@@ -8,24 +8,19 @@ using System;
 public class Grimoire : MonoBehaviour
 {
     public List<Collectable> collectables = new List<Collectable>();
-    //public string[] loreStrings = new string[] { "Teste", "Teste2", "Teste3", "Teste4", "Teste5", "Teste6", "Teste7", "Teste8", "Teste9", "Teste10", "Teste11" };
-
-    // [SerializeField] private Animator bookAnimator = null;
-    [SerializeField] private GameObject loreGameObject;
-    [SerializeField] private GameObject minimapGameObject;
+    //[SerializeField] private GameObject loreGameObject;
+    //[SerializeField] private GameObject minimapGameObject;
     [SerializeField] private GameObject grimoireCanvas;
-    //[SerializeField] private Button pageLeftButton;
-    //[SerializeField] private Button pageRightButton;
+    [SerializeField] private Button menuButton;
 
     private TMP_Text collectablesCountText;
 
-    //private uint currentPage = 1;
-    //private const int textPerPage = 5;
     private Collectable[] collectablesArray;
 
     private void Awake()
     {
-        collectablesCountText = loreGameObject.GetComponentInChildren<TMP_Text>(true);
+        //collectablesCountText = loreGameObject.GetComponentInChildren<TMP_Text>(true);
+        menuButton.onClick.AddListener(delegate { FindObjectOfType<SceneManagement>().LoadMenu(); });
     }
 
     private void Start()
@@ -44,6 +39,8 @@ public class Grimoire : MonoBehaviour
         {
             collectable.OnPickup -= HandlePickup;
         }
+
+        grimoireCanvas.GetComponentInChildren<Button>(true).onClick.RemoveAllListeners();
     }
 
     private void Update()
@@ -51,8 +48,13 @@ public class Grimoire : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.Escape))
         {
             grimoireCanvas.SetActive(!grimoireCanvas.activeInHierarchy);
-            Time.timeScale = grimoireCanvas.activeInHierarchy ? 0f : 1f;
+            //Time.timeScale = grimoireCanvas.activeInHierarchy ? 0f : 1f;
         }
+    }
+
+    public void BackButtonClick()
+    {
+        grimoireCanvas.SetActive(false);
     }
 
     private void HandlePickup(Collectable collectable)
@@ -65,57 +67,6 @@ public class Grimoire : MonoBehaviour
     {
         collectablesCountText.text = collectables.Count.ToString() + "/" + collectablesArray.Length.ToString();
     }
-    /*
-    public void displayNewLore(uint inicio, uint fim)
-    {
-        for (uint i = inicio; i < fim; i++)
-        {
-            collectablesCountText.text += loreStrings[i] + "\n";
-        }
-    }*/
-
-    /*
-    private void ChangePage(uint pageNumber, uint lorePerPage)
-    {
-        collectablesCountText.text = "";
-        displayNewLore(lorePerPage * (pageNumber - 1), lorePerPage * pageNumber - 1);
-    }*/
-    /*
-    public void PageRight()
-    {
-        if (collectablesCount > currentPage * textPerPage)
-        {
-            currentPage++;
-            ChangePage(currentPage, textPerPage);
-
-            if (collectablesCount > currentPage * textPerPage)
-            {
-                pageRightButton.interactable = false;
-            }
-            else
-            {
-                pageRightButton.interactable = true;
-            }
-        }
-    }*/
-    /*
-    public void PageLeft()
-    {
-        if (currentPage > 1)
-        {
-            currentPage--;
-            ChangePage(currentPage, textPerPage);
-
-            if (currentPage > 1)
-            {
-                pageLeftButton.interactable = false;
-            }
-            else
-            {
-                pageLeftButton.interactable = true;
-            }
-        }
-    }*/
 
     private void OnEnable()
     {
@@ -132,14 +83,14 @@ public class Grimoire : MonoBehaviour
     public void LoreClickButton()
     {
         // mudar a aparencia do botao
-        loreGameObject.SetActive(true);
-        minimapGameObject.SetActive(false);
+        //loreGameObject.SetActive(true);
+        //minimapGameObject.SetActive(false);
     }
 
     public void MinimapClickButton()
     {
         // mudar a aparencia do botao
-        minimapGameObject.SetActive(true);
-        loreGameObject.SetActive(false);
+        //minimapGameObject.SetActive(true);
+        //loreGameObject.SetActive(false);
     }
 }
