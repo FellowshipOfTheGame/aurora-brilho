@@ -19,6 +19,8 @@ public class AuroraLife : MonoBehaviour
 
     private Animator crossfade;
 
+    [Header("Cached components")]
+    [SerializeField] Animator auroraAnimator;
 
     bool respawning = false;
     float respawnTimer;
@@ -77,6 +79,8 @@ public class AuroraLife : MonoBehaviour
                 auroraRigidbody2D.velocity = Vector2.zero;
 
                 crossfade?.SetTrigger("end");
+
+                auroraAnimator.SetTrigger("revive");
             }
         }
     }
@@ -109,17 +113,18 @@ public class AuroraLife : MonoBehaviour
             respawnTimer = 0f;
 
             crossfade?.SetTrigger("start");
+
+            auroraAnimator.SetTrigger("die");
         }
     }
 
-    public void TakeDamage(Vector2 directionForce)
+    public void TakeDamage()
     {
         if (canSufferDamage)
         {
             lives--;
             canSufferDamage = false;
-            //auroraRigidbody2D.AddForce(directionForce, ForceMode2D.Impulse);
-            auroraRigidbody2D.AddForce(directionForce * knockbackForce, ForceMode2D.Impulse);
+            auroraMovement.Knockback(knockbackForce);
             changeLifeText?.Invoke(lives);
         }
     }
