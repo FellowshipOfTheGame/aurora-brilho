@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameStateManager : MonoBehaviour
 {
@@ -19,7 +20,13 @@ public class GameStateManager : MonoBehaviour
             Destroy(gameObject);
         }
         #endregion
+
+        checkpointSceneIndex = SceneManager.GetActiveScene().buildIndex;
     }
 
+    public bool spawnInCheckpoint = true;
     public int spawnIndex = 0;
+    public int checkpointSceneIndex;
+
+    public int auroraLives;
 }
