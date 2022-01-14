@@ -13,13 +13,12 @@ public class Grimoire : MonoBehaviour
     [SerializeField] private GameObject grimoireCanvas;
     [SerializeField] private Button menuButton;
 
-    private TMP_Text collectablesCountText;
+    [SerializeField] private TMP_Text collectablesCountText;
 
     private Collectable[] collectablesArray;
 
     private void Awake()
     {
-        //collectablesCountText = loreGameObject.GetComponentInChildren<TMP_Text>(true);
         menuButton.onClick.AddListener(delegate { FindObjectOfType<SceneManagement>().LoadMenu(); });
     }
 
@@ -31,6 +30,8 @@ public class Grimoire : MonoBehaviour
         {
             collectable.OnPickup += HandlePickup;
         }
+
+        UpdateCountText();
     }
 
     private void OnDestroy()
@@ -65,7 +66,7 @@ public class Grimoire : MonoBehaviour
 
     private void UpdateCountText()
     {
-        collectablesCountText.text = collectables.Count.ToString() + "/" + collectablesArray.Length.ToString();
+        collectablesCountText.text = collectables.Count.ToString() + "/" + collectablesArray.Length.ToString() + " Coletáveis coletados";
     }
 
     private void OnEnable()
