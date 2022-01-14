@@ -3,28 +3,40 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.Events;
+using UnityEngine.UI;
 
 public class LifeUI : MonoBehaviour
 {
-    private TMP_Text lifeText;
-    private AuroraLife auroraLife;
-    public UnityAction<int> changeText;
+    public UnityAction<int> changeLivesUI;
+
+    [SerializeField] private Sprite[] heartSprites;
+    [SerializeField] private Image[] heartImages;
 
     // Start is called before the first frame update
     private void Awake()
     {
-        lifeText = GetComponent<TMP_Text>();
-        auroraLife = FindObjectOfType<AuroraLife>();
-        changeText += ChangeText;
+        changeLivesUI += ChangeLivesUI;
     }
 
     private void OnDestroy()
     {
-        changeText -= ChangeText;
+        changeLivesUI -= ChangeLivesUI;
     }
 
-    public void ChangeText(int lifeValue)
+    public void ChangeLivesUI(int lifeValue)
     {
-        lifeText.text = lifeValue.ToString();
+        int maxLives = FindObjectOfType<AuroraLife>().MaxLives;
+
+        for (int i = 0; i < maxLives; i++)
+        {
+            if (i < lifeValue)
+            {
+                heartImages[i].sprite = heartSprites[0];
+            }
+            else
+            {
+                heartImages[i].sprite = heartSprites[1];
+            }
+        }
     }
 }
