@@ -15,9 +15,13 @@ public class SpawnManager : MonoBehaviour
 
     private void Start()
     {
-        Vector2 spawnPos = GetSpawnPosition();
-        // spawn aurora in spawnPos
-        auroraMovement.transform.position = spawnPos; // temporary solution
+        if (!GameStateManager.instance.spawnInCheckpoint)
+        {
+            Vector2 spawnPos = GetSpawnPosition();
+
+            // spawn aurora in spawnPos
+            auroraMovement.transform.position = spawnPos;
+        }
     }
 
     public Vector2 GetSpawnPosition()

@@ -8,7 +8,7 @@ public class LifeUI : MonoBehaviour
 {
     private TMP_Text lifeText;
     private AuroraLife auroraLife;
-    public UnityAction<uint> changeText;
+    public UnityAction<int> changeText;
 
     // Start is called before the first frame update
     private void Awake()
@@ -23,7 +23,7 @@ public class LifeUI : MonoBehaviour
         changeText -= ChangeText;
     }
 
-    public void ChangeText(uint lifeValue)
+    public void ChangeText(int lifeValue)
     {
         lifeText.text = lifeValue.ToString();
     }

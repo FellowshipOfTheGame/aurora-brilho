@@ -5,7 +5,8 @@ using UnityEngine.Events;
 
 public class AuroraLife : MonoBehaviour
 {
-    public uint lives = 3;
+    private int maxLives = 3;
+    public int currentLives;
     public bool canSufferDamage = true;
     private float invulnerabilityTime = 0f;
     private float time = 0;
@@ -13,7 +14,7 @@ public class AuroraLife : MonoBehaviour
     private AuroraMovement auroraMovement;
     private LifeUI lifeUI;
     private float respawnTime = 2f;
-    private UnityAction<uint> changeLifeText;
+    private UnityAction<int> changeLifeText;
     private LifeItem[] lifesArray;
     public float knockbackForce;
 
@@ -27,13 +28,22 @@ public class AuroraLife : MonoBehaviour
 
     void Start()
     {
+        if (GameStateManager.instance.spawnInCheckpoint)
+        {
+            currentLives = maxLives;
+        }
+        else
+        {
+            currentLives = GameStateManager.instance.auroraLives;
+        }
+
         crossfade = GameObject.Find("/Level Loader/Crossfade")?.GetComponent<Animator>();
 
         auroraRigidbody2D = GetComponent<Rigidbody2D>();
         auroraMovement = GetComponent<AuroraMovement>();
         lifeUI = FindObjectOfType<LifeUI>();
         if (lifeUI) changeLifeText = lifeUI.changeText;
-        changeLifeText?.Invoke(lives);
+        changeLifeText?.Invoke(currentLives);
 
         lifesArray = FindObjectsOfType<LifeItem>();
 
@@ -58,12 +68,12 @@ public class AuroraLife : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (lives <= 0)
+        if (currentLives <= 0)
         {
             Death();
         }
 
-        if (respawning)
+        /*if (respawning)
         {
             respawnTimer += Time.deltaTime;
             if (respawnTimer > respawnTime)
@@ -78,23 +88,29 @@ public class AuroraLife : MonoBehaviour
                 auroraRigidbody2D.position = FindObjectOfType<SpawnManager>().GetSpawnPosition();
                 auroraRigidbody2D.velocity = Vector2.zero;
 
-                crossfade?.SetTrigger("end");
+                //crossfade?.SetTrigger("end");
 
-                auroraAnimator.SetTrigger("revive");
+                //auroraAnimator.SetTrigger("revive");
             }
-        }
+        }*/
     }
 
     private bool PickupLive()
     {
-        if (lives < 3)
+        if (currentLives < 3)
         {
-            lives++;
-            changeLifeText?.Invoke(lives);
+            currentLives++;
+            changeLifeText?.Invoke(currentLives);
             return true;
         }
 
         return false;
+    }
+
+    public void FullyHeal()
+    {
+        currentLives = 3;
+        changeLifeText?.Invoke(currentLives);
     }
 
     public void Death()
@@ -105,16 +121,19 @@ public class AuroraLife : MonoBehaviour
             // nao destruir o objeto
             // mover ele pro checkpoint
             // respanwTime tem que ser maior que o tempo da animaçao
-            lives = 0;
-            changeLifeText?.Invoke(lives);
+            currentLives = 0;
+            changeLifeText?.Invoke(currentLives);
             auroraMovement.PauseMovement(true);
             canSufferDamage = false;
-            respawning = true;
-            respawnTimer = 0f;
-
-            crossfade?.SetTrigger("start");
-
             auroraAnimator.SetTrigger("die");
+
+            GameStateManager.instance.spawnInCheckpoint = true;
+            SceneManagement.instance.LoadScene(GameStateManager.instance.checkpointSceneIndex);
+
+            respawning = true;
+            //respawnTimer = 0f;
+
+            //crossfade?.SetTrigger("start");
         }
     }
 
@@ -122,10 +141,15 @@ public class AuroraLife : MonoBehaviour
     {
         if (canSufferDamage)
         {
-            lives--;
+            currentLives--;
             canSufferDamage = false;
             auroraMovement.Knockback(knockbackForce);
-            changeLifeText?.Invoke(lives);
+            changeLifeText?.Invoke(currentLives);
         }
+    }
+
+    public int GetCurrentLives()
+    {
+        return currentLives;
     }
 }

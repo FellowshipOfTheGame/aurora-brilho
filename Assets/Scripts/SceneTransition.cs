@@ -11,6 +11,8 @@ public class SceneTransition : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
+            GameStateManager.instance.auroraLives = FindObjectOfType<AuroraLife>().GetCurrentLives();
+            GameStateManager.instance.spawnInCheckpoint = false;
             GameStateManager.instance.spawnIndex = destinationSpawnIndex;
             SceneManagement.instance.LoadScene(sceneName);
         }

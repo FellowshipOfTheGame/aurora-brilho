@@ -144,10 +144,10 @@ MonoBehaviour:
   fallMultiplier: 1.2
   lowJumpMultiplier: 2.5
   topFallingSpeed: 35
-  jumpHeight: 4.3
-  timeToApex: 0.37
+  jumpHeight: 4.5
+  timeToApex: 0.4
   wallSilidingTopSpeed: 2.5
-  wallJumpAngle: 60
+  wallJumpAngle: 65
   leaveWallToleranceTime: 0.25
   groundMask:
     serializedVersion: 2
@@ -169,7 +169,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6703e2feb754b0c45988fd85ace0d5df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lives: 3
+  currentLives: 0
   canSufferDamage: 1
   knockbackForce: 25
   auroraAnimator: {fileID: 8840698995021135381}

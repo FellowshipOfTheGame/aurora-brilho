@@ -1534,6 +1534,50 @@ MonoBehaviour:
   - transform: {fileID: 274039617}
     speed: 0.6
     relativePosition: {x: 81.844215, y: 18.060926, z: 0}
+--- !u!1 &883574729
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 883574731}
+  - component: {fileID: 883574730}
+  m_Layer: 0
+  m_Name: Checkpoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &883574730
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 883574729}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c5475f26e55bb4e4e9462957a6bf3192, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  checkpointPosition: {x: -19.904373, y: -10.343431, z: 0}
+--- !u!4 &883574731
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 883574729}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 7.894371, y: 6.1851654, z: -227.6078}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 15
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &922127220
 GameObject:
   m_ObjectHideFlags: 0
@@ -1669,18 +1713,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 4627108798632549632, guid: 536c2ee885d15a04a8e3138f015b80fb, type: 3}
-      propertyPath: jumpHeight
-      value: 4.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 4627108798632549632, guid: 536c2ee885d15a04a8e3138f015b80fb, type: 3}
-      propertyPath: timeToApex
-      value: 0.4
-      objectReference: {fileID: 0}
-    - target: {fileID: 4627108798632549632, guid: 536c2ee885d15a04a8e3138f015b80fb, type: 3}
-      propertyPath: wallJumpAngle
-      value: 65
-      objectReference: {fileID: 0}
     - target: {fileID: 4627108798632549633, guid: 536c2ee885d15a04a8e3138f015b80fb, type: 3}
       propertyPath: m_RootOrder
       value: 4
@@ -3139,6 +3171,10 @@ PrefabInstance:
     - target: {fileID: 3124366061013019909, guid: 05ffcc84d91012b47a614e38ddeb74b0, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3124366061013019914, guid: 05ffcc84d91012b47a614e38ddeb74b0, type: 3}
+      propertyPath: spawnInCheckpoint
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3124366061013019915, guid: 05ffcc84d91012b47a614e38ddeb74b0, type: 3}
       propertyPath: m_Name
