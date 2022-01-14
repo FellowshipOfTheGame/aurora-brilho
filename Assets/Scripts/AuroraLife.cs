@@ -6,6 +6,7 @@ using UnityEngine.Events;
 public class AuroraLife : MonoBehaviour
 {
     private int maxLives = 3;
+    public int MaxLives { get => maxLives; }
     public int currentLives;
     public bool canSufferDamage = true;
     private float invulnerabilityTime = 0f;
@@ -38,7 +39,7 @@ public class AuroraLife : MonoBehaviour
         auroraRigidbody2D = GetComponent<Rigidbody2D>();
         auroraMovement = GetComponent<AuroraMovement>();
         lifeUI = FindObjectOfType<LifeUI>();
-        if (lifeUI) changeLifeText = lifeUI.changeText;
+        if (lifeUI) changeLifeText = lifeUI.changeLivesUI;
         changeLifeText?.Invoke(currentLives);
 
         lifesArray = FindObjectsOfType<LifeItem>();
