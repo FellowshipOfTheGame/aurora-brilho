@@ -26,7 +26,7 @@ public class AuroraLife : MonoBehaviour
 
     void Start()
     {
-        if (GameStateManager.instance.spawnInCheckpoint)
+        if (GameStateManager.instance == null || GameStateManager.instance.spawnInCheckpoint)
         {
             currentLives = maxLives;
         }
