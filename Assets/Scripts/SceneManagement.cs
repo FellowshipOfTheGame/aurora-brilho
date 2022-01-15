@@ -29,6 +29,8 @@ public class SceneManagement : MonoBehaviour
 
     public void LoadMenu()
     {
+        Destroy(GameStateManager.instance.gameObject);
+
         StartCoroutine(LoadLevel(0));
     }
 

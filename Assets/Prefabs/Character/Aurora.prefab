@@ -139,7 +139,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   accelerationTime: 0.15
   decelerationTime: 0.1
-  topSpeed: 12
+  topSpeed: 13
   airControl: 0.75
   fallMultiplier: 1.2
   lowJumpMultiplier: 2.5
