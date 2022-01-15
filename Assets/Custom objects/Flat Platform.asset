@@ -13,10 +13,16 @@ MonoBehaviour:
   m_Name: Flat Platform
   m_EditorClassIdentifier: 
   m_Angles:
-  - m_Start: -180
-    m_End: 180
+  - m_Start: -45
+    m_End: 45
     m_Order: 0
     m_Sprites:
+    - {fileID: 21300000, guid: bc2318191c7967f4dae6ca7b54980008, type: 3}
+  - m_Start: 45
+    m_End: 315
+    m_Order: 0
+    m_Sprites:
+    - {fileID: 21300000, guid: f8bcd58c4157b824fa01fabfa0d358e5, type: 3}
     - {fileID: 21300000, guid: bc2318191c7967f4dae6ca7b54980008, type: 3}
   m_FillTexture: {fileID: 0}
   m_CornerSprites:
