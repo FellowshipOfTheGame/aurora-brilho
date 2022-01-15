@@ -12,14 +12,15 @@ public class Grimoire : MonoBehaviour
     //[SerializeField] private GameObject minimapGameObject;
     [SerializeField] private GameObject grimoireCanvas;
     [SerializeField] private Button menuButton;
-
     [SerializeField] private TMP_Text collectablesCountText;
 
     private Collectable[] collectablesArray;
+    private SoundManager soundManager;
 
     private void Awake()
     {
-        menuButton.onClick.AddListener(delegate { FindObjectOfType<SceneManagement>().LoadMenu(); });
+        soundManager = FindObjectOfType<SoundManager>();
+        menuButton.onClick.AddListener(delegate { FindObjectOfType<SceneManagement>().LoadMenu(); soundManager.PlaySound("Start Button Click"); });
     }
 
     private void Start()
@@ -49,12 +50,22 @@ public class Grimoire : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.Escape))
         {
             grimoireCanvas.SetActive(!grimoireCanvas.activeInHierarchy);
+
+            if (grimoireCanvas.activeInHierarchy)
+            {
+                soundManager.PlaySound("Credits Button Click");
+            }
+            else
+            {
+                soundManager.PlaySound("Back Button Click");
+            }
             //Time.timeScale = grimoireCanvas.activeInHierarchy ? 0f : 1f;
         }
     }
 
     public void BackButtonClick()
     {
+        soundManager.PlaySound("Back Button Click");
         grimoireCanvas.SetActive(false);
     }
 

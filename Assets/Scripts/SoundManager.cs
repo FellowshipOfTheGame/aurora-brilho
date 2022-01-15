@@ -23,13 +23,17 @@ public class SoundManager : MonoBehaviour
     private float musicVolume = 1f;
     private float SFXVolume = 1f;
 
-    private AudioClip mainMusic;
+    private AudioClip mainMusic, startButton, creditsButton, backButton, exitButton;
     private AudioSource audioSource;
 
     void Start()
     {
         audioSource = GetComponent<AudioSource>();
         mainMusic = Resources.Load<AudioClip>("Teste 1 Aurora");
+        startButton = Resources.Load<AudioClip>("StartButton");
+        creditsButton = Resources.Load<AudioClip>("CreditsButton");
+        backButton = Resources.Load<AudioClip>("BackButton");
+        exitButton = Resources.Load<AudioClip>("ExitButton");
         //musicVolume = PlayerPrefsController.GetMusicVolume();
         //SFXVolume = PlayerPrefsController.GetSFXVolume();
         audioSource.volume = musicVolume;
@@ -40,11 +44,17 @@ public class SoundManager : MonoBehaviour
     {
         switch (sound)
         {
-            case "Button Click":
-                //audioSource.PlayOneShot(buttonClick, SFXVolume);
+            case "Start Button Click":
+                audioSource.PlayOneShot(startButton, SFXVolume);
                 break;
-            case "Place Plant":
-                //audioSource.PlayOneShot(placePlant, SFXVolume);
+            case "Credits Button Click":
+                audioSource.PlayOneShot(creditsButton, SFXVolume);
+                break;
+            case "Back Button Click":
+                audioSource.PlayOneShot(backButton, SFXVolume);
+                break;
+            case "Exit Button Click":
+                audioSource.PlayOneShot(exitButton, SFXVolume);
                 break;
             default:
                 break;
