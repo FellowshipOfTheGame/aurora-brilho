@@ -8,12 +8,19 @@ public class MenuManager : MonoBehaviour
     [SerializeField] private GameObject creditsGameObject;
 
     private AuroraMovement auroraMovement;
+    private SoundManager soundManager;
 
     // Start is called before the first frame update
     void Awake()
     {
         auroraMovement = FindObjectOfType<AuroraMovement>();
         auroraMovement.StopInput(true);
+        soundManager = SoundManager.instance;
+    }
+
+    public void PlaySound(string soundName)
+    {
+        soundManager.PlaySound(soundName);
     }
 
     public void HideMenuCanvas()

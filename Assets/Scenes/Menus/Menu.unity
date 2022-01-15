@@ -664,8 +664,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1382499007}
-        m_TargetAssemblyTypeName: SoundManager, Assembly-CSharp
+      - m_Target: {fileID: 6779731973928414444}
+        m_TargetAssemblyTypeName: MenuManager, Assembly-CSharp
         m_MethodName: PlaySound
         m_Mode: 5
         m_Arguments:
@@ -943,8 +943,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1382499007}
-        m_TargetAssemblyTypeName: SoundManager, Assembly-CSharp
+      - m_Target: {fileID: 6779731973928414444}
+        m_TargetAssemblyTypeName: MenuManager, Assembly-CSharp
         m_MethodName: PlaySound
         m_Mode: 5
         m_Arguments:
@@ -1246,8 +1246,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1382499007}
-        m_TargetAssemblyTypeName: SoundManager, Assembly-CSharp
+      - m_Target: {fileID: 6779731973928414444}
+        m_TargetAssemblyTypeName: MenuManager, Assembly-CSharp
         m_MethodName: PlaySound
         m_Mode: 5
         m_Arguments:
@@ -1366,17 +1366,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61e74a6126e9bca42aef37c624ae67f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1382499007 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4722225060174201185, guid: 6fc87163745c7714aaeb8a03f1a3836e, type: 3}
-  m_PrefabInstance: {fileID: 1624034956}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 17e7f2f3785f66846a4ce8f1c05cf265, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1398316332
 GameObject:
   m_ObjectHideFlags: 0
@@ -1472,8 +1461,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1382499007}
-        m_TargetAssemblyTypeName: SoundManager, Assembly-CSharp
+      - m_Target: {fileID: 6779731973928414444}
+        m_TargetAssemblyTypeName: MenuManager, Assembly-CSharp
         m_MethodName: PlaySound
         m_Mode: 5
         m_Arguments:
