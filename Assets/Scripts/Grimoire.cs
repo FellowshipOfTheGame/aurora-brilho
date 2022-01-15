@@ -19,7 +19,7 @@ public class Grimoire : MonoBehaviour
 
     private void Awake()
     {
-        soundManager = FindObjectOfType<SoundManager>();
+        soundManager = SoundManager.instance;
         menuButton.onClick.AddListener(delegate { FindObjectOfType<SceneManagement>().LoadMenu(); soundManager.PlaySound("Start Button Click"); });
     }
 
