@@ -63,6 +63,7 @@ public class AuroraMovement : MonoBehaviour
 
     // Input variables
     int xAxisInput;
+    public int XAxisInput { set => xAxisInput = value; }
     float jumpKeyPressedInTime = -1f;
     bool jumpKeyReleased;
 
