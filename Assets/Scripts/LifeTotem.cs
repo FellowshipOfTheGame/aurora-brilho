@@ -13,6 +13,9 @@ public class LifeTotem : MonoBehaviour
 
             // Seta checkpoint atual a este
             GetComponentInChildren<CheckpointManager>().SetCheckpoint();
+
+            // Toca o som
+            SoundManager.instance.PlaySound("Heal");
         }
     }
 }
