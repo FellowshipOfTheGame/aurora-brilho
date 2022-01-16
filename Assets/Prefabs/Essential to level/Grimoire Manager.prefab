@@ -583,6 +583,7 @@ MonoBehaviour:
   grimoireCanvas: {fileID: 7065974368844025471}
   menuButton: {fileID: 1311215063376664273}
   collectablesCountText: {fileID: 648434127}
+  mainCanvasColletableText: {fileID: 0}
 --- !u!1 &4371443488458691868
 GameObject:
   m_ObjectHideFlags: 0
@@ -906,7 +907,7 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
-  m_AdditionalShaderChannelsFlag: 1
+  m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
   m_SortingOrder: 50
   m_TargetDisplay: 0
