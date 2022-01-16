@@ -110,6 +110,7 @@ public class AuroraLife : MonoBehaviour
     {
         if (canSufferDamage)
         {
+            SoundManager.instance.PlaySound("Hit");
             currentLives--;
             canSufferDamage = false;
             auroraMovement.Knockback(knockbackForce);
