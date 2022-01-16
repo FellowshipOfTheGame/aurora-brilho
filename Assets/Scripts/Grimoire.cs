@@ -13,6 +13,7 @@ public class Grimoire : MonoBehaviour
     [SerializeField] private GameObject grimoireCanvas;
     [SerializeField] private Button menuButton;
     [SerializeField] private TMP_Text collectablesCountText;
+    [SerializeField] private TMP_Text mainCanvasColletableText;
 
     private Collectable[] collectablesArray;
     private SoundManager soundManager;
@@ -78,6 +79,8 @@ public class Grimoire : MonoBehaviour
     private void UpdateCountText()
     {
         collectablesCountText.text = collectables.Count.ToString() + "/" + collectablesArray.Length.ToString() + " Coletáveis coletados";
+        if (mainCanvasColletableText != null)
+            mainCanvasColletableText.text = collectables.Count.ToString() + "/" + collectablesArray.Length.ToString() + " Coletáveis coletados";
     }
 
     private void OnEnable()
