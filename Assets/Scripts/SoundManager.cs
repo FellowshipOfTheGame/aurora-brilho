@@ -2,12 +2,17 @@ using UnityEngine;
 
 public class SoundManager : MonoBehaviour
 {
-    #region Singleton
+    private float musicVolume = 1f;
+    private float SFXVolume = 1f;
+
+    private AudioClip music1, music2, startButton, creditsButton, backButton, exitButton;
+    private AudioSource audioSource;
 
     public static SoundManager instance;
 
     private void Awake()
     {
+        #region Singleton
         if (instance == null)
         {
             instance = this;
@@ -17,19 +22,11 @@ public class SoundManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-    }
-    #endregion
+        #endregion
 
-    private float musicVolume = 1f;
-    private float SFXVolume = 1f;
-
-    private AudioClip mainMusic, startButton, creditsButton, backButton, exitButton;
-    private AudioSource audioSource;
-
-    void Start()
-    {
         audioSource = GetComponent<AudioSource>();
-        mainMusic = Resources.Load<AudioClip>("Teste 1 Aurora");
+        music1 = Resources.Load<AudioClip>("Song 1");
+        music2 = Resources.Load<AudioClip>("Song 2");
         startButton = Resources.Load<AudioClip>("StartButton");
         creditsButton = Resources.Load<AudioClip>("CreditsButton");
         backButton = Resources.Load<AudioClip>("BackButton");
@@ -37,7 +34,6 @@ public class SoundManager : MonoBehaviour
         //musicVolume = PlayerPrefsController.GetMusicVolume();
         //SFXVolume = PlayerPrefsController.GetSFXVolume();
         audioSource.volume = musicVolume;
-        ChangeMusic("Main Music");
     }
 
     public void PlaySound(string sound)
@@ -61,17 +57,26 @@ public class SoundManager : MonoBehaviour
         }
     }
 
-    public void ChangeMusic(string song)
+    public void ChangeMusic(string song, bool startOver = true)
     {
+        AudioClip clipToPlay = null;
         switch (song)
         {
-            case "Main Music":
-                audioSource.clip = mainMusic;
-                audioSource.Play();
+            case "Song 1":
+                clipToPlay = music1;
+                break;
+            case "Song 2":
+                clipToPlay = music2;
                 break;
             default:
                 break;
         }
+
+        if (!startOver && audioSource.clip == clipToPlay)
+            return;
+
+        audioSource.clip = clipToPlay;
+        audioSource.Play();
     }
 
     public void ChangeSFXVolume(float value)

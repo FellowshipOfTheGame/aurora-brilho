@@ -18,6 +18,11 @@ public class MenuManager : MonoBehaviour
         soundManager = SoundManager.instance;
     }
 
+    private void Start()
+    {
+        soundManager.ChangeMusic("Song 1");
+    }
+
     public void PlaySound(string soundName)
     {
         soundManager.PlaySound(soundName);

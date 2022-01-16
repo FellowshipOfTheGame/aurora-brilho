@@ -8,6 +8,11 @@ public class Portal : MonoBehaviour
     [SerializeField] Canvas endCanvas;
     [SerializeField] Animator cameraAnimator;
 
+    private void Start()
+    {
+        SoundManager.instance.ChangeMusic("Song 2", false);
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
