@@ -201,6 +201,7 @@ public class AuroraMovement : MonoBehaviour
 
     public void Bounce(Vector2 direction, float force)
     {
+        SoundManager.instance.PlaySound("Bounce");
         rb.velocity = Vector2.zero;
         rb.AddForce(direction.normalized * force, ForceMode2D.Impulse);
         jumpsAvailable = jumpsQuantity - 1;
