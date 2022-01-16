@@ -93,6 +93,8 @@ public class AuroraLife : MonoBehaviour
     {
         if (!respawning)
         {
+            SoundManager.instance.PlaySound("Hit");
+
             currentLives = 0;
             changeLifeText?.Invoke(currentLives);
             auroraMovement.PauseMovement(true);
