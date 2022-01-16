@@ -11,6 +11,7 @@ public class Collectable : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
+            SoundManager.instance.PlaySound("Potion");
             OnPickup?.Invoke(this);
             gameObject.SetActive(false);
         }
