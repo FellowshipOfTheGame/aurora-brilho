@@ -789,7 +789,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1501786362186206872, guid: ca677c886fedcdd43998906ed896719d, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -9.695717
+      value: -9.703655
       objectReference: {fileID: 0}
     - target: {fileID: 1501786362186206872, guid: ca677c886fedcdd43998906ed896719d, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1412,6 +1412,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 331371516}
     m_Modifications:
+    - target: {fileID: 3908633656044380507, guid: aeb0ea7d304c84342a8a0205fad62b74, type: 3}
+      propertyPath: m_DynamicOccludee
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8106841302504207349, guid: aeb0ea7d304c84342a8a0205fad62b74, type: 3}
       propertyPath: m_Name
       value: Spike
