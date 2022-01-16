@@ -34,7 +34,7 @@ public class SoundManager : MonoBehaviour
         creditsButton = Resources.Load<AudioClip>("CreditsButton");
         backButton = Resources.Load<AudioClip>("BackButton");
         exitButton = Resources.Load<AudioClip>("ExitButton");
-        hit = Resources.Load<AudioClip>("Hit");
+        hit = Resources.Load<AudioClip>("Hit1" );
         heal = Resources.Load<AudioClip>("Heal");
         bounce = Resources.Load<AudioClip>("Boing");
         potion = Resources.Load<AudioClip>("Potion");
@@ -61,10 +61,10 @@ public class SoundManager : MonoBehaviour
                 audioSource.PlayOneShot(exitButton, SFXVolume);
                 break;
             case "Hit":
-                audioSource.PlayOneShot(hit, SFXVolume);
+                audioSource.PlayOneShot(hit, SFXVolume * 2f);
                 break;
             case "Heal":
-                audioSource.PlayOneShot(heal, SFXVolume);
+                audioSource.PlayOneShot(heal, SFXVolume * 0.5f);
                 break;
             case "Bounce":
                 audioSource.PlayOneShot(bounce, SFXVolume);

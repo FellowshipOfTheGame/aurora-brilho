@@ -253,7 +253,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3329720443574452403, guid: 691c920d2aa9fdf4ba98e4ae161a3c40, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -16.410524
+      value: -16.406227
       objectReference: {fileID: 0}
     - target: {fileID: 3329720443574452403, guid: 691c920d2aa9fdf4ba98e4ae161a3c40, type: 3}
       propertyPath: m_LocalPosition.y
@@ -261,7 +261,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3329720443763992627, guid: 691c920d2aa9fdf4ba98e4ae161a3c40, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -100.70093
+      value: -100.693535
       objectReference: {fileID: 0}
     - target: {fileID: 3329720443763992627, guid: 691c920d2aa9fdf4ba98e4ae161a3c40, type: 3}
       propertyPath: m_LocalPosition.y
@@ -269,7 +269,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3329720443769969402, guid: 691c920d2aa9fdf4ba98e4ae161a3c40, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -20.380081
+      value: -20.374926
       objectReference: {fileID: 0}
     - target: {fileID: 3329720443769969402, guid: 691c920d2aa9fdf4ba98e4ae161a3c40, type: 3}
       propertyPath: m_LocalPosition.y
@@ -277,7 +277,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3329720443784931891, guid: 691c920d2aa9fdf4ba98e4ae161a3c40, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -99.1131
+      value: -99.10606
       objectReference: {fileID: 0}
     - target: {fileID: 3329720443784931891, guid: 691c920d2aa9fdf4ba98e4ae161a3c40, type: 3}
       propertyPath: m_LocalPosition.y
@@ -285,7 +285,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3329720443824176761, guid: 691c920d2aa9fdf4ba98e4ae161a3c40, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -97.525276
+      value: -97.51858
       objectReference: {fileID: 0}
     - target: {fileID: 3329720443824176761, guid: 691c920d2aa9fdf4ba98e4ae161a3c40, type: 3}
       propertyPath: m_LocalPosition.y
@@ -293,7 +293,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3329720443829482679, guid: 691c920d2aa9fdf4ba98e4ae161a3c40, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -24.349638
+      value: -24.34362
       objectReference: {fileID: 0}
     - target: {fileID: 3329720443829482679, guid: 691c920d2aa9fdf4ba98e4ae161a3c40, type: 3}
       propertyPath: m_LocalPosition.y
@@ -357,7 +357,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3329720444143661306, guid: 691c920d2aa9fdf4ba98e4ae161a3c40, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -102.28875
+      value: -102.28101
       objectReference: {fileID: 0}
     - target: {fileID: 3329720444143661306, guid: 691c920d2aa9fdf4ba98e4ae161a3c40, type: 3}
       propertyPath: m_LocalPosition.y
@@ -365,7 +365,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3329720444381274308, guid: 691c920d2aa9fdf4ba98e4ae161a3c40, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -106.2583
+      value: -106.24971
       objectReference: {fileID: 0}
     - target: {fileID: 3329720444381274308, guid: 691c920d2aa9fdf4ba98e4ae161a3c40, type: 3}
       propertyPath: m_LocalPosition.y
@@ -373,7 +373,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3329720444597796248, guid: 691c920d2aa9fdf4ba98e4ae161a3c40, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -12.440968
+      value: -12.43753
       objectReference: {fileID: 0}
     - target: {fileID: 3329720444597796248, guid: 691c920d2aa9fdf4ba98e4ae161a3c40, type: 3}
       propertyPath: m_LocalPosition.y
@@ -429,7 +429,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3329720444798243479, guid: 691c920d2aa9fdf4ba98e4ae161a3c40, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -8.471411
+      value: -8.468832
       objectReference: {fileID: 0}
     - target: {fileID: 3329720444798243479, guid: 691c920d2aa9fdf4ba98e4ae161a3c40, type: 3}
       propertyPath: m_LocalPosition.y
@@ -590,7 +590,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1501786362186206872, guid: ca677c886fedcdd43998906ed896719d, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -9.558308
+      value: -9.549713
       objectReference: {fileID: 0}
     - target: {fileID: 1501786362186206872, guid: ca677c886fedcdd43998906ed896719d, type: 3}
       propertyPath: m_LocalPosition.y
@@ -881,18 +881,28 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Gabriel - M\xFAsica e Efeitos Sonoros\nIgor - Programa\xE7\xE3o\nLiz -
-    Arte 2D\nMilena - Arte 2D\nThales - Programa\xE7\xE3o\nTom\xE1s - Arte 2D e Programa\xE7\xE3o"
+  m_text: 'Gabriel - Musica e Efeitos Sonoros
+
+    Igor - Programacao
+
+    Liz -
+    Arte
+
+    Milena - Arte
+
+    Thales - Programacao
+
+    Tomas - Arte e Programacao'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 87bf039d39b6a6140a3189f5eb3b8417, type: 2}
+  m_sharedMaterial: {fileID: 3918647577115175560, guid: 87bf039d39b6a6140a3189f5eb3b8417, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4283610083
+  m_fontColor: {r: 0.89019614, g: 0.7019608, b: 0.32156864, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -1221,7 +1231,7 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
-  m_AdditionalShaderChannelsFlag: 1
+  m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
@@ -2042,15 +2052,15 @@ MonoBehaviour:
       m_Calls: []
   m_text: Fim
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: a42207da62e9d39428fe2ee38ea3e261, type: 2}
+  m_sharedMaterial: {fileID: 7637645776134055354, guid: a42207da62e9d39428fe2ee38ea3e261, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4283610083
+  m_fontColor: {r: 0.89019614, g: 0.7019608, b: 0.32156864, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:

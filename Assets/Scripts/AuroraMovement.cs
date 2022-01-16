@@ -306,7 +306,7 @@ public class AuroraMovement : MonoBehaviour
 
     private void Jump()
     {
-        SoundManager.instance.PlaySound("Jump");
+        //SoundManager.instance.PlaySound("Jump");
 
         float jumpVelocity = -gravity * timeToApex;
 
