@@ -201,6 +201,7 @@ public class AuroraMovement : MonoBehaviour
 
     public void Bounce(Vector2 direction, float force)
     {
+        SoundManager.instance.PlaySound("Bounce");
         rb.velocity = Vector2.zero;
         rb.AddForce(direction.normalized * force, ForceMode2D.Impulse);
         jumpsAvailable = jumpsQuantity - 1;
@@ -305,6 +306,8 @@ public class AuroraMovement : MonoBehaviour
 
     private void Jump()
     {
+        SoundManager.instance.PlaySound("Jump");
+
         float jumpVelocity = -gravity * timeToApex;
 
         if (!wallSliding)

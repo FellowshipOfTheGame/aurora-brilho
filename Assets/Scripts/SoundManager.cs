@@ -5,7 +5,7 @@ public class SoundManager : MonoBehaviour
     private float musicVolume = 1f;
     private float SFXVolume = 1f;
 
-    private AudioClip startButton, creditsButton, backButton, exitButton, music1, music2, hit, heal;
+    private AudioClip startButton, creditsButton, backButton, exitButton, music1, music2, hit, heal, bounce, potion, jump;
     private AudioSource audioSource;
 
     public static SoundManager instance;
@@ -36,6 +36,9 @@ public class SoundManager : MonoBehaviour
         exitButton = Resources.Load<AudioClip>("ExitButton");
         hit = Resources.Load<AudioClip>("Hit");
         heal = Resources.Load<AudioClip>("Heal");
+        bounce = Resources.Load<AudioClip>("Boing");
+        potion = Resources.Load<AudioClip>("Potion");
+        jump = Resources.Load<AudioClip>("Jump");
         //musicVolume = PlayerPrefsController.GetMusicVolume();
         //SFXVolume = PlayerPrefsController.GetSFXVolume();
         audioSource.volume = musicVolume;
@@ -62,6 +65,15 @@ public class SoundManager : MonoBehaviour
                 break;
             case "Heal":
                 audioSource.PlayOneShot(heal, SFXVolume);
+                break;
+            case "Bounce":
+                audioSource.PlayOneShot(bounce, SFXVolume);
+                break;
+            case "Potion":
+                audioSource.PlayOneShot(potion, SFXVolume);
+                break;
+            case "Jump":
+                audioSource.PlayOneShot(jump, SFXVolume);
                 break;
             default:
                 break;
